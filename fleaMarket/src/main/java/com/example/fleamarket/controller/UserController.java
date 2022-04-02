@@ -37,8 +37,8 @@ public class UserController {
         UsernamePasswordToken token = new UsernamePasswordToken(username,password);
         try {
             subject.login(token);
-            /*User user = (User) subject.getPrincipal();
-            subject.getSession().setAttribute("user", user);*/
+            User user = (User) subject.getPrincipal();
+            subject.getSession().setAttribute("user", user);
             return new ResultVo().setMessage("登入成功");
         } catch (UnknownAccountException e) {
             e.printStackTrace();
@@ -75,8 +75,8 @@ public class UserController {
     }
     @ApiOperation("用户图片修改接口")
     @GetMapping("/photoUpdate")
-    public ResultVo photoUpdate(MultipartFile file){
-        return new ResultVo().setData(iUserService.updatePhoto(file));
+    public ResultVo photoUpdate(MultipartFile file,int userId){
+        return new ResultVo().setData(iUserService.updatePhoto(file,userId));
     }
 
 

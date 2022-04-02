@@ -10,6 +10,6 @@ public interface IGoodService extends IService<Goods> {
 
     Boolean update(String goodName,String summary,String detail);
 
-    Boolean updatePhoto(MultipartFile file);
+    Boolean updatePhoto(MultipartFile file,int goodId);
 }
 

@@ -42,10 +42,11 @@ public class UserService extends ServiceImpl<IUserDao, User> implements IUserSer
 	}
 
 	@Override
-	public Boolean updatePhoto(MultipartFile file) {
+	public Boolean updatePhoto(MultipartFile file,int userId) {
 		String url = AliyunOSSUtil.upload(file);
 		User user = new User();
 		user.setPhone(url);
+		user.setUserId(userId);
 		return saveOrUpdate(user);
 	}
 

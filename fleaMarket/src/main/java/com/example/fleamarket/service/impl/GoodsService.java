@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.fleamarket.dao.IGoodsDao;
 
 import com.example.fleamarket.empty.Goods;
-import com.example.fleamarket.empty.User;
 import com.example.fleamarket.service.IGoodService;
 import com.example.fleamarket.utils.AliyunOSSUtil;
 import org.springframework.stereotype.Service;
@@ -28,10 +27,11 @@ public class GoodsService extends ServiceImpl<IGoodsDao, Goods> implements IGood
         return saveOrUpdate(goods);
     }
     @Override
-    public Boolean updatePhoto(MultipartFile file) {
+    public Boolean updatePhoto(MultipartFile file,int goodId) {
         String url = AliyunOSSUtil.upload(file);
         Goods goods = new Goods();
         goods.setImage(url);
+        goods.setGoodId(goodId);
         return saveOrUpdate(goods);
     }
 
