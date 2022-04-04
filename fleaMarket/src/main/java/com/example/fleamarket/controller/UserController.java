@@ -77,6 +77,12 @@ public class UserController {
     public ResultVo photoUpdate(MultipartFile file,int userId){
         return new ResultVo().setData(iUserService.updatePhoto(file,userId));
     }
+    @ApiOperation("修改审核未通过商品数接口")
+    @GetMapping("/updateunqualifiedGoods")
+    public ResultVo updateUnqualifiedGoods(String userName){
+        return new ResultVo().setData(iUserService.updateUnqualifiedGoods(userName));
+    }
+
 
 
 }

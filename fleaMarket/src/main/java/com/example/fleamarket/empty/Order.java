@@ -1,6 +1,7 @@
 package com.example.fleamarket.empty;
 
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @ApiModel(description = "订单")
 public class Order extends AbstractAuditingEntity {
+    @TableId
     @ApiModelProperty("商品id")
     int goodId;
     @ApiModelProperty("出售用户的id")

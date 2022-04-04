@@ -48,6 +48,14 @@ public class UserService extends ServiceImpl<IUserDao, User> implements IUserSer
 		user.setUserId(userId);
 		return saveOrUpdate(user);
 	}
+	@Override
+	public Boolean updateUnqualifiedGoods(String userName){
+		User user = queryById(userName);
+		int flag = user.getUnqualifiedGoods();
+		user.setUnqualifiedGoods(flag+1);
+		return save(user);
+	}
+
 
 
 }

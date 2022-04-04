@@ -11,16 +11,9 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-
 public class UserRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
-
-    /**
-     * 执行授权逻辑
-     * 只要访问加上授权的资源都会调用改方法
-     * */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         //给资源进行授权
@@ -32,10 +25,6 @@ public class UserRealm extends AuthorizingRealm {
         info.addStringPermission(user.getRole());
         return info;
     }
-    /**
-     * 执行认证逻辑
-     * 只要使用subject.login(token) 就会调用该方法
-     * */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         //1、判断用户名
