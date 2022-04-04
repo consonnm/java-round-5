@@ -22,10 +22,6 @@ spring:
       secret-key: eFrGA781MwLSK5OJuISeabdvCZD1on
       oss:
         endpoint: oss-cn-hangzhou.aliyuncs.com
-
-
-
-
 mybatis:
   mapper-locations:classpath:mapper/*.xml
   type-aliases-package:com.example.ibookreader.entity

@@ -5,9 +5,10 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.fleamarket.dao.ICollectionDao;
 import com.example.fleamarket.empty.Collection;
-import com.example.fleamarket.empty.Follow;
 import com.example.fleamarket.service.ICollectionService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CollectionService extends ServiceImpl<ICollectionDao,Collection> implements ICollectionService {
     public Boolean insert(int userId,int goodId){
         Collection collection = new Collection();

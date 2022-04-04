@@ -1,11 +1,9 @@
 package com.example.fleamarket.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.example.fleamarket.empty.History;
 import com.example.fleamarket.empty.Order;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IOrderService;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

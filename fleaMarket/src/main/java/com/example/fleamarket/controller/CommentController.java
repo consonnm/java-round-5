@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommentController {
     @Autowired
     ICommentService iCommentService;
+
+    public CommentController(ICommentService iCommentService) {
+        this.iCommentService = iCommentService;
+    }
+
     @ApiOperation("查询所有评论")
     @GetMapping("/getAllComment")
     public ResultVo all(int userId){

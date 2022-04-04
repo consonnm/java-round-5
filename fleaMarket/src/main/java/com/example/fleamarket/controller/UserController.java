@@ -4,7 +4,6 @@ package com.example.fleamarket.controller;
 import com.example.fleamarket.empty.User;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IUserService;
-import com.example.fleamarket.utils.AliyunOSSUtil;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.shiro.SecurityUtils;
