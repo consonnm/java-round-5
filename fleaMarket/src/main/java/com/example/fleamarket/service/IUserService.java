@@ -13,6 +13,4 @@ public interface IUserService extends IService<User> {
     Boolean updateUer(String nickname,String phone,String age,String qq);
 
     Boolean updatePhoto(MultipartFile file,int userId);
-
-    Boolean updateUnqualifiedGoods(String userName);
 }

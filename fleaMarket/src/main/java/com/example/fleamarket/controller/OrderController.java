@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.fleamarket.empty.Order;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IOrderService;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,11 +44,5 @@ public class OrderController {
     public ResultVo statusUpdate(){
         return new ResultVo().setData(iOrderService.statusUpdate());
     }
-    @ApiOperation("用户新增订单接口")
-    @GetMapping("/addOrder")
-    public ResultVo addOrder(int goodId,int  solderId,int buyerId,int orderId,String time,String buyerName,String phoneNumber){
-        return new ResultVo().setData(iOrderService.addOrder(goodId, solderId, buyerId, orderId, time, buyerName, phoneNumber));
-    }
-
 
 }
