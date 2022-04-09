@@ -4,8 +4,10 @@ package com.example.fleamarket.controller;
 import com.example.fleamarket.empty.User;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IUserService;
+import com.example.fleamarket.utils.AliyunOSSUtil;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
+@Slf4j
 @RestController
 @RequestMapping(value ="/user")
 public class UserController {
@@ -27,7 +29,7 @@ public class UserController {
     @ApiOperation("登录接口")
     @PostMapping("/login")
     public ResultVo login(@ApiParam("用户名")String username, @ApiParam("密码")String password){
-        Subject subject = SecurityUtils.getSubject();
+        log.info("登录接口"); Subject subject = SecurityUtils.getSubject();
         User us = iUserService.queryById(username);
         if(us!=null) {
             String salt = us.getSalt();
@@ -36,8 +38,8 @@ public class UserController {
         UsernamePasswordToken token = new UsernamePasswordToken(username,password);
         try {
             subject.login(token);
-            User user = (User) subject.getPrincipal();
-            subject.getSession().setAttribute("user", user);
+            /*User user = (User) subject.getPrincipal();
+            subject.getSession().setAttribute("user", user);*/
             return new ResultVo().setMessage("登入成功");
         } catch (UnknownAccountException e) {
             e.printStackTrace();
@@ -50,7 +52,7 @@ public class UserController {
     @ApiOperation("注册接口")
     @PostMapping("/register")
     public ResultVo register(String username,String password) {
-        if(username==null|| username.equals("")){
+        log.info("注册接口"); if(username==null|| username.equals("")){
             return new ResultVo().setMessage("用户名不能为空");
         }else if(password==null|| password.equals("")) {
             return new ResultVo().setMessage("密码不能为空");
@@ -63,20 +65,19 @@ public class UserController {
     @ApiOperation("登出接口")
     @GetMapping("/logout")
     public ResultVo logout() {
-        Subject subject = SecurityUtils.getSubject();
+        log.info("登出接口"); Subject subject = SecurityUtils.getSubject();
         subject.logout();
         return new ResultVo().setMessage("退出成功");
     }
     @ApiOperation("用户基础信息修改接口")
     @GetMapping("/baseMessageUpdate")
     public ResultVo baseUpdate(String nickname,String phone,String age,String qq){
-        return new ResultVo().setData(iUserService.updateUer(nickname,phone,age,qq));
+        log.info("用户基础信息修改接口"); return new ResultVo().setData(iUserService.updateUer(nickname,phone,age,qq));
     }
     @ApiOperation("用户图片修改接口")
     @GetMapping("/photoUpdate")
     public ResultVo photoUpdate(MultipartFile file,int userId){
         return new ResultVo().setData(iUserService.updatePhoto(file,userId));
     }
-
 
 }
