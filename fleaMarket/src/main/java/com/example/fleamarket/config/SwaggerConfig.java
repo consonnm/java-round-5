@@ -33,7 +33,6 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
         return new ApiInfoBuilder()
                 .title("二手市场交易系统"+"API接口文档")
                 .description("API文档")
-                .termsOfServiceUrl("https://blog.csdn.net/xqnode")
                 .contact(new Contact("bright", "", ""))
                 .version("1.0")
                 .build();

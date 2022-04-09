@@ -65,8 +65,8 @@ public class GoodController {
     }
     @ApiOperation("商品图片修改接口")
     @GetMapping("/photoUpdate")
-    public ResultVo photoUpdate(MultipartFile file){
+    public ResultVo photoUpdate(MultipartFile file,int goodId){
         log.info("商品图片修改接口");
-        return new ResultVo().setData(iGoodService.updatePhoto(file));
+        return new ResultVo().setData(iGoodService.updatePhoto(file,goodId));
     }
 }
