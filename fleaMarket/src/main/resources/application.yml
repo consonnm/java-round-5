@@ -18,10 +18,16 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
     alicloud:
-      access-key: LTAI4G5YSzmqTo59nmKXDJaF
-      secret-key: eFrGA781MwLSK5OJuISeabdvCZD1on
+      access-key: LTAI5t6WAjybmXMxC9L5a8ov
+      secret-key: AKYs2rqmQSGuCe4pHOMXtBDHJ9cClM
       oss:
-        endpoint: oss-cn-hangzhou.aliyuncs.com
+        endpoint: oss-cn-beijing.aliyuncs.com
+        bucketName: flea--market
+        filehost: fleaMarket
+
+
+
+
 mybatis:
   mapper-locations:classpath:mapper/*.xml
   type-aliases-package:com.example.ibookreader.entity
@@ -30,13 +36,6 @@ logging:
   D:/text/
 server:
   port: 8989
-oss:
-  file:
-      endpoint: "oss-cn-beijing.aliyuncs.com"
-      KeyId: "LTAI5t6WAjybmXMxC9L5a8ov"
-      KeySecret: "AKYs2rqmQSGuCe4pHOMXtBDHJ9cClM"
-      bucketName: "flea--market"
-      filehost: "fleaMarket"
 
 
 

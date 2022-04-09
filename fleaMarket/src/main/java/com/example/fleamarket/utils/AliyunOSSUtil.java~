@@ -19,15 +19,15 @@ import java.util.UUID;
 
 @Component
 public class AliyunOSSUtil {
-    @Value("${spring.cloud.alicloud.oss.endpoint}")
+    @Value("${oss.file.endpoint}")
     private static String  endpoint;
-    @Value("${spring.cloud.alicloud.access-key}")
+    @Value("${oos.file.keyId}")
     private static String  keyId;
-    @Value("${spring.cloud.alicloud.secret-key}")
+    @Value("${oos.file.keySecret}")
     private static String  keySecret;
-    @Value("${spring.cloud.alicloud.oos.bucketName}")
+    @Value("${oos.file.bucketName}")
     private static String  bucketName;
-    @Value("${spring.cloud.alicloud.oos.filehost}")
+    @Value("${oos.file.filehost}")
     private static String  filehost;
 
 

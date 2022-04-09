@@ -5,12 +5,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.fleamarket.dao.IOrderDao;
 import com.example.fleamarket.empty.Order;
-import com.example.fleamarket.empty.User;
 import com.example.fleamarket.service.IOrderService;
-import org.apache.shiro.crypto.SecureRandomNumberGenerator;
-import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Service;
-import sun.security.provider.MD5;
 
 @Service
 public class OrderService extends ServiceImpl<IOrderDao, Order> implements IOrderService {
@@ -35,15 +31,5 @@ public class OrderService extends ServiceImpl<IOrderDao, Order> implements IOrde
         order.setBuyerName(buyerName);
         order.setPhoneNumber(phoneNumber);
         return saveOrUpdate(order);
-    }
-    public Boolean addOrder(int goodId,int  solderId,int buyerId,int orderId,String time,String buyerName,String phoneNumber) {
-        Order order = new Order();
-        order.setGoodId(goodId);
-        order.setSolderId(solderId);
-        order.setOrderId(buyerId);
-        order.setTime(time);
-        order.setBuyerName(buyerName);
-        order.setPhoneNumber(phoneNumber);
-        return save(order);
     }
 }

@@ -76,9 +76,8 @@ public class UserController {
     }
     @ApiOperation("用户图片修改接口")
     @GetMapping("/photoUpdate")
-    public ResultVo photoUpdate(MultipartFile file){
-        log.info("用户图片修改接口"); return new ResultVo().setData(iUserService.updatePhoto(file));
+    public ResultVo photoUpdate(MultipartFile file,int userId){
+        return new ResultVo().setData(iUserService.updatePhoto(file,userId));
     }
-
 
 }
