@@ -1,7 +1,7 @@
 package com.example.fleamarket.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.example.fleamarket.empty.History;
+import com.example.fleamarket.entity.History;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IHistoryService;
 import io.swagger.annotations.ApiOperation;

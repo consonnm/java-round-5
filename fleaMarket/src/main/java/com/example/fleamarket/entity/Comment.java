@@ -1,4 +1,4 @@
-package com.example.fleamarket.empty;
+package com.example.fleamarket.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -10,18 +10,18 @@ import lombok.NoArgsConstructor;
 
 
 @EqualsAndHashCode(callSuper = true)
-@TableName("category")
+@TableName("comment")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "商品分类")
-public class Category extends AbstractAuditingEntity {
+@ApiModel(description = "用户评价")
+public class Comment extends AbstractAuditingEntity {
 	@ApiModelProperty("主键，自增")
-	Integer id;
-	@ApiModelProperty("名称")
-	String name;
-	@ApiModelProperty("分类级别，1是一级分类，2是二级分类")
-	Integer rank;
-	@ApiModelProperty("父分类的id，若无父分类，则为0")
-	Integer parentId;
+	int commentId;
+	@ApiModelProperty("评价用户的id")
+	int commentUserId;
+	@ApiModelProperty("被评价用户的id")
+	int beCommentedUserId;
+	@ApiModelProperty("评论的内容")
+	String content;
 }

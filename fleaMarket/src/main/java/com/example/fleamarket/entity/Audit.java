@@ -1,4 +1,4 @@
-package com.example.fleamarket.empty;
+package com.example.fleamarket.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;

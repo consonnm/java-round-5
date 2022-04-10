@@ -5,6 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
-@RequestMapping(value ="/catgorycontroller")
+@RequestMapping(value ="/catgory")
 public class Categorycontroller {
 }

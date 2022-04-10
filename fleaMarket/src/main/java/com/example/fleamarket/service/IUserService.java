@@ -2,7 +2,7 @@ package com.example.fleamarket.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.fleamarket.empty.User;
+import com.example.fleamarket.entity.User;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface IUserService extends IService<User> {

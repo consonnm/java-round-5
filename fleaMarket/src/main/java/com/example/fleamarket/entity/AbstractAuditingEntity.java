@@ -1,4 +1,4 @@
-package com.example.fleamarket.empty;
+package com.example.fleamarket.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;

@@ -1,6 +1,6 @@
 package com.example.fleamarket.shrio;
 
-import com.example.fleamarket.empty.User;
+import com.example.fleamarket.entity.User;
 import com.example.fleamarket.service.impl.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -10,8 +10,6 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 public class UserRealm extends AuthorizingRealm {
     @Autowired

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.fleamarket.dao.IGoodsDao;
 
-import com.example.fleamarket.empty.Goods;
+import com.example.fleamarket.entity.Goods;
 import com.example.fleamarket.service.IGoodService;
 import com.example.fleamarket.utils.AliyunOSSUtil;
 import org.springframework.stereotype.Service;

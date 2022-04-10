@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.fleamarket.dao.IUserDao;
 
-import com.example.fleamarket.empty.User;
+import com.example.fleamarket.entity.User;
 import com.example.fleamarket.service.IUserService;
 import com.example.fleamarket.utils.AliyunOSSUtil;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
