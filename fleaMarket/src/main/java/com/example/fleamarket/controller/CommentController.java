@@ -8,6 +8,7 @@ import com.example.fleamarket.entity.Comment;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.ICommentService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class CommentController {
     }
     @ApiOperation("查询所有评论")
     @GetMapping("/getAllComment")
-    public ResultVo all(int userId,int current,int size){
+    public ResultVo all(@ApiParam("用户id")int userId, @ApiParam("当前页")int current, @ApiParam("大小")int size){
         log.info("查询所有评论");
         Page<Comment> page = new Page<>(current , size );
         LambdaQueryWrapper<Comment> userLambdaQueryWrapper = Wrappers.lambdaQuery();
@@ -35,13 +36,13 @@ public class CommentController {
     }
     @ApiOperation("增加评论")
     @GetMapping("/insert")
-    public ResultVo insert(int commentId,int beCommentId,String context){
+    public ResultVo insert(@ApiParam("评论者id")int commentUserId,@ApiParam("被评论者id")int beCommentUserId,@ApiParam("评论内容")String context){
         log.info("增加评论");
-        return new ResultVo().setData(iCommentService.insert(commentId,beCommentId,context));
+        return new ResultVo().setData(iCommentService.insert(commentUserId,beCommentUserId,context));
     }
     @ApiOperation("删除评论")
     @GetMapping("/remove")
-    public ResultVo remove(int commentId){
+    public ResultVo remove(@ApiParam("评论id")int commentId){
         log.info("删除评论");
         return new ResultVo().setData(iCommentService.remove(commentId));
     }

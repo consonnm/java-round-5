@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface IGoodService extends IService<Goods> {
     Goods queryById(int goodId);
 
-    Boolean update(String goodName,String summary,String detail,double price,String goodSort);
+    Boolean update(String goodName,String summary,String detail,double price,String goodSort,int goodId);
 
     Boolean updatePhoto(MultipartFile file,int goodId);
     Boolean remove(int goodId);

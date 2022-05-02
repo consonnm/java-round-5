@@ -65,7 +65,7 @@ public class UserController {
 
     @ApiOperation("注册接口")
     @PostMapping("/register")
-    public ResultVo register(String username, String password) {
+    public ResultVo register(@ApiParam("用户名")String username,@ApiParam("密码") String password) {
         log.info("注册接口");
         if (username == null || username.equals("")) {
             return new ResultVo().setMessage("用户名不能为空");
@@ -89,26 +89,26 @@ public class UserController {
 
     @ApiOperation("用户基础信息修改接口")
     @GetMapping("/baseMessageUpdate")
-    public ResultVo baseUpdate(String nickname, String phone, String age, String qq) {
+    public ResultVo baseUpdate(@ApiParam("昵称")String nickname, @ApiParam("电话")String phone, @ApiParam("年龄")String age, @ApiParam("qq")String qq) {
         log.info("用户基础信息修改接口");
         return new ResultVo().setData(iUserService.updateUer(nickname, phone, age, qq));
     }
 
     @ApiOperation("用户图片修改接口")
     @GetMapping("/photoUpdate")
-    public ResultVo photoUpdate(MultipartFile file, int userId) {
+    public ResultVo photoUpdate(@ApiParam("照片")MultipartFile file,@ApiParam("用户id") int userId) {
         return new ResultVo().setData(iUserService.updatePhoto(file, userId));
     }
     @ApiOperation("修改审核未通过用户不合格商品数接口")
     @GetMapping("/unqualifiedGoodsUpdate")
-    public ResultVo photoUpdate(String userName) {
+    public ResultVo photoUpdate(@ApiParam("用户名")String userName) {
         return new ResultVo().setData(iUserService.unqualifiedGoodsUpdate(userName));
     }
     @RequiresRoles("admin")
     @ApiOperation("查询不合规商品过多的用户")
     @GetMapping("/get")
-    public ResultVo all(int current){
-        Page<User> page = new Page<>(current, 2 );
+    public ResultVo all(@ApiParam("当前页")int current,@ApiParam("大小")int size){
+        Page<User> page = new Page<>(current, size);
         LambdaQueryWrapper<User> userLambdaQueryWrapper = Wrappers.lambdaQuery();
         userLambdaQueryWrapper.ge(User::getUnqualifiedGoods,10);
         return new ResultVo().setData(iUserService.findByPage(page,userLambdaQueryWrapper));

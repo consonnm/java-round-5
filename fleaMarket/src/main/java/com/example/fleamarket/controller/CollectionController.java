@@ -11,6 +11,7 @@ import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.ICollectionService;
 import com.example.fleamarket.service.IFollowService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,7 @@ public class CollectionController {
     @RequiresRoles("usr::user")
     @ApiOperation("查询所有收藏")
     @GetMapping("/getAllFollow")
-    public ResultVo all(int userId,int current,int size){
+    public ResultVo all(@ApiParam("用户id")int userId, @ApiParam("当前页")int current,@ApiParam("大小") int size){
         Page<Collection> page = new Page<>(current , size );
         LambdaQueryWrapper<Collection> userLambdaQueryWrapper = Wrappers.lambdaQuery();
         userLambdaQueryWrapper.eq(Collection::getUserId,userId);
@@ -34,13 +35,13 @@ public class CollectionController {
     @RequiresRoles("usr::user")
     @ApiOperation("增加收藏")
     @GetMapping("/insert")
-    public ResultVo insert(int userId,int goodId){
+    public ResultVo insert(@ApiParam("用户id")int userId,@ApiParam("商品id")int goodId){
         return new ResultVo().setData(iCollectionService.insert(userId,goodId));
     }
     @RequiresRoles("usr::user")
     @ApiOperation("删除收藏")
     @GetMapping("/remove")
-    public ResultVo remove(int userId,int goodId){
+    public ResultVo remove(@ApiParam("用户id")int userId,@ApiParam("商品id")int goodId){
         return new ResultVo().setData(iCollectionService.remove(userId,goodId));
     }
 }

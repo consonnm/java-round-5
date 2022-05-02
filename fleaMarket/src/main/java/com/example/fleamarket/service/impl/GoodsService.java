@@ -24,8 +24,9 @@ public class GoodsService extends ServiceImpl<IGoodsDao, Goods> implements IGood
     }
 
     @Override
-    public Boolean update(String goodName, String summary, String detail,double price,String goodSort) {
+    public Boolean update(String goodName, String summary, String detail,double price,String goodSort,int goodId) {
         Goods goods = new Goods();
+        goods.setGoodId(goodId);
         goods.setGoodName(goodName);
         goods.setDetail(summary);
         goods.setDetail(detail);

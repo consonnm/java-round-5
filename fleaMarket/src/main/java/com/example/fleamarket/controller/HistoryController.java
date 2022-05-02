@@ -8,6 +8,7 @@ import com.example.fleamarket.entity.History;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IHistoryService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,7 @@ public class HistoryController {
     IHistoryService iHistoryService;
     @ApiOperation("查询所有历史")
     @GetMapping("/getAllHistory")
-    public ResultVo all(int userId,int current,int size){
+    public ResultVo all(int userId, @ApiParam("当前页")int current,@ApiParam("大小") int size){
         log.info("查询所有历史");
         Page<History> page = new Page<>(current,size);
         LambdaQueryWrapper<History> userLambdaQueryWrapper = Wrappers.lambdaQuery();
@@ -30,13 +31,13 @@ public class HistoryController {
     }
     @ApiOperation("增加历史")
     @GetMapping("/insert")
-    public ResultVo insert(int userId,int goodId){
+    public ResultVo insert(@ApiParam("用户id")int userId,@ApiParam("商品id")int goodId){
         log.info("增加历史");
         return new ResultVo().setData(iHistoryService.insert(userId,goodId));
     }
     @ApiOperation("删除历史")
     @GetMapping("/remove")
-    public ResultVo remove(int userId,int goodId){
+    public ResultVo remove(@ApiParam("用户id")int userId,@ApiParam("商品id")int goodId){
         log.info("删除历史");
         return new ResultVo().setData(iHistoryService.remove(userId,goodId));
     }
