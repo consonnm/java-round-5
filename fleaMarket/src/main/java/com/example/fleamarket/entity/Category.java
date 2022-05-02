@@ -1,5 +1,7 @@
 package com.example.fleamarket.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,19 +11,19 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 
-@EqualsAndHashCode(callSuper = true)
 @TableName("category")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(description = "商品分类")
-public class Category extends AbstractAuditingEntity {
+public class Category{
+	@TableId(type = IdType.AUTO)
 	@ApiModelProperty("主键，自增")
-	Integer id;
+	int CategoryId;
 	@ApiModelProperty("名称")
-	String name;
-	@ApiModelProperty("分类级别，1是一级分类，2是二级分类")
+	String goodSort;
+	/*@ApiModelProperty("分类级别，1是一级分类，2是二级分类")
 	Integer rank;
 	@ApiModelProperty("父分类的id，若无父分类，则为0")
-	Integer parentId;
+	Integer parentId;*/
 }

@@ -1,6 +1,8 @@
 package com.example.fleamarket.entity;
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,17 +11,18 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@EqualsAndHashCode(callSuper = true)
+
 @TableName("history")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(description = "浏览记录")
-public class History extends AbstractAuditingEntity {
+public class History{
+    @TableId(type = IdType.AUTO)
     @ApiModelProperty("主键，自增")
-    Integer id;
+    int id;
     @ApiModelProperty("用户的id")
-    Integer userId;
+    int userId;
     @ApiModelProperty("商品的id")
-    Integer goodsId;
+    int goodsId;
 }

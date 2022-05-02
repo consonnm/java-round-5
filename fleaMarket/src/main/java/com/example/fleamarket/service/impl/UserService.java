@@ -1,9 +1,12 @@
 package com.example.fleamarket.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.fleamarket.dao.IUserDao;
 
+import com.example.fleamarket.entity.Category;
 import com.example.fleamarket.entity.User;
 import com.example.fleamarket.service.IUserService;
 import com.example.fleamarket.utils.AliyunOSSUtil;
@@ -29,8 +32,10 @@ public class UserService extends ServiceImpl<IUserDao, User> implements IUserSer
 		user.setPassword(MD5.toHex());
 		user.setUsername(username);
 		user.setSalt(salt);
+		user.setRole("user::user");
 		return save(user);
 	}
+	@Override
 	public Boolean updateUer(String nickname,String phone,String age,String qq){
 		User user = new User();
 		user.setAge(age);
@@ -48,6 +53,15 @@ public class UserService extends ServiceImpl<IUserDao, User> implements IUserSer
 		user.setUserId(userId);
 		return saveOrUpdate(user);
 	}
-
+	@Override
+	public Boolean unqualifiedGoodsUpdate(String userName){
+		User user = queryById(userName);
+		user.setUnqualifiedGoods(user.getUnqualifiedGoods()+1);
+		return saveOrUpdate(user);
+	}
+	@Override
+	public IPage<User> findByPage(Page<User> page, LambdaQueryWrapper<User> userLambdaQueryWrapper){
+		return  baseMapper.selectPage(page,userLambdaQueryWrapper);
+	}
 
 }

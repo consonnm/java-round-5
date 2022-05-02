@@ -1,11 +1,15 @@
 package com.example.fleamarket.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.fleamarket.entity.Collection;
 import com.example.fleamarket.entity.Comment;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.ICommentService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,14 +24,14 @@ public class CommentController {
     public CommentController(ICommentService iCommentService) {
         this.iCommentService = iCommentService;
     }
-
     @ApiOperation("查询所有评论")
     @GetMapping("/getAllComment")
-    public ResultVo all(int userId){
+    public ResultVo all(int userId,int current,int size){
         log.info("查询所有评论");
-        return new ResultVo().setData(iCommentService.list(new LambdaQueryWrapper<Comment>()
-                .eq(Comment::getBeCommentedUserId,userId))
-        );
+        Page<Comment> page = new Page<>(current , size );
+        LambdaQueryWrapper<Comment> userLambdaQueryWrapper = Wrappers.lambdaQuery();
+        userLambdaQueryWrapper.eq(Comment::getBeCommentedUserId,userId);
+        return new ResultVo().setData(iCommentService.findByPage(page,userLambdaQueryWrapper));
     }
     @ApiOperation("增加评论")
     @GetMapping("/insert")

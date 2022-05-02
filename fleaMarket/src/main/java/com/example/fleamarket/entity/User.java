@@ -1,5 +1,6 @@
 package com.example.fleamarket.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -13,8 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(description = "用户")
-public class User  extends AbstractAuditingEntity {
-	@TableId
+public class User{
+	@TableId(type = IdType.AUTO)
 	@ApiModelProperty("主键，自增")
 	int userId;
 	@ApiModelProperty("角色，ADMIN为管理员，VIP1为普通会员")

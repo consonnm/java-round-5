@@ -1,16 +1,22 @@
 package com.example.fleamarket.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.fleamarket.entity.Collection;
 import com.example.fleamarket.entity.User;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IUserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.json.JSON;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +26,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Slf4j
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
     @Autowired
     IUserService iUserService;
+
 
     @ApiOperation("登录接口")
     @PostMapping("/login")
@@ -40,7 +50,6 @@ public class UserController {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try {
             subject.login(token);
-            return new ResultVo().setMessage("登入成功");
         } catch (UnknownAccountException e) {
             e.printStackTrace();
             return new ResultVo().setMessage("用户名不存在");
@@ -48,6 +57,10 @@ public class UserController {
             e.printStackTrace();
             return new ResultVo().setMessage("密码错误");
         }
+        Map<String, Object> map = new HashMap<>();
+        map.put("user", us);
+        map.put("token", token);
+        return new ResultVo().setCode(200).setMessage("登录成功").setData(map);
     }
 
     @ApiOperation("注册接口")
@@ -86,5 +99,18 @@ public class UserController {
     public ResultVo photoUpdate(MultipartFile file, int userId) {
         return new ResultVo().setData(iUserService.updatePhoto(file, userId));
     }
-
+    @ApiOperation("修改审核未通过用户不合格商品数接口")
+    @GetMapping("/unqualifiedGoodsUpdate")
+    public ResultVo photoUpdate(String userName) {
+        return new ResultVo().setData(iUserService.unqualifiedGoodsUpdate(userName));
+    }
+    @RequiresRoles("admin")
+    @ApiOperation("查询不合规商品过多的用户")
+    @GetMapping("/get")
+    public ResultVo all(int current){
+        Page<User> page = new Page<>(current, 2 );
+        LambdaQueryWrapper<User> userLambdaQueryWrapper = Wrappers.lambdaQuery();
+        userLambdaQueryWrapper.ge(User::getUnqualifiedGoods,10);
+        return new ResultVo().setData(iUserService.findByPage(page,userLambdaQueryWrapper));
+    }
 }

@@ -7,4 +7,5 @@ public interface IOrderService extends IService<Order> {
     Boolean remove(int orderId);
     Boolean baseUpdate(String buyerName,String phoneNumber);
     Boolean statusUpdate();
+    int insert(int goodId,int solderId,int buyerId,String time,String buyerName,String phoneNumber);
 }

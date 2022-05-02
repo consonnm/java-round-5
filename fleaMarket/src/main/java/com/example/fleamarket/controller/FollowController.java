@@ -1,6 +1,9 @@
 package com.example.fleamarket.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.fleamarket.entity.Comment;
 import com.example.fleamarket.entity.Follow;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IFollowService;
@@ -19,10 +22,11 @@ public class FollowController {
     IFollowService iFollowService;
     @ApiOperation("查询所有关注")
     @GetMapping("/getAllFollow")
-    public ResultVo all(int userId){
-        return new ResultVo().setData(iFollowService.list(new LambdaQueryWrapper<Follow>()
-                .eq(Follow::getFollowerId,userId))
-        );
+    public ResultVo all(int userId,int current,int size){
+        Page<Follow> page = new Page<>(current , size );
+        LambdaQueryWrapper<Follow> userLambdaQueryWrapper = Wrappers.lambdaQuery();
+        userLambdaQueryWrapper.eq(Follow::getFollowerId,userId);
+        return new ResultVo().setData(iFollowService.findByPage(page,userLambdaQueryWrapper));
     }
     @ApiOperation("增加关注")
     @GetMapping("/insert")
