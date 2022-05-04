@@ -1,0 +1,910 @@
+Index: fleaMarket/src/main/java/com/example/fleamarket/controller/FollowController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.controller;\r\n\r\nimport com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;\r\nimport com.example.fleamarket.empty.Comment;\r\nimport com.example.fleamarket.empty.Follow;\r\nimport com.example.fleamarket.empty.History;\r\nimport com.example.fleamarket.response.ResultVo;\r\nimport com.example.fleamarket.service.ICommentService;\r\nimport com.example.fleamarket.service.IFollowService;\r\nimport io.swagger.annotations.ApiOperation;\r\nimport lombok.extern.slf4j.Slf4j;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\n@Slf4j\r\n@RestController\r\n@RequestMapping(value =\"/follow\")\r\npublic class FollowController {\r\n    @Autowired\r\n    IFollowService iFollowService;\r\n    @ApiOperation(\"查询所有关注\")\r\n    @GetMapping(\"/getAllFollow\")\r\n    public ResultVo all(int userId){\r\n\r\n        log.info(\"查询所有关注\");  return new ResultVo().setData(iFollowService.list(new LambdaQueryWrapper<Follow>()\r\n                .eq(Follow::getFollowerId,userId))\r\n        );\r\n    }\r\n    @ApiOperation(\"增加评论\")\r\n    @GetMapping(\"/insert\")\r\n    public ResultVo insert(int followerId,int followedId){\r\n        log.info(\"增加评论\");    return new ResultVo().setData(iFollowService.insert(followerId, followedId));\r\n    }\r\n    @ApiOperation(\"删除评论\")\r\n    @GetMapping(\"/remove\")\r\n    public ResultVo remove(int followerId,int followedId){\r\n        log.info(\"删除评论\");    return new ResultVo().setData(iFollowService.remove(followerId,followerId));\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/controller/FollowController.java b/fleaMarket/src/main/java/com/example/fleamarket/controller/FollowController.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/controller/FollowController.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/controller/FollowController.java	
+@@ -1,11 +1,8 @@
+ package com.example.fleamarket.controller;
+ 
+ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+-import com.example.fleamarket.empty.Comment;
+-import com.example.fleamarket.empty.Follow;
+-import com.example.fleamarket.empty.History;
++import com.example.fleamarket.entity.Follow;
+ import com.example.fleamarket.response.ResultVo;
+-import com.example.fleamarket.service.ICommentService;
+ import com.example.fleamarket.service.IFollowService;
+ import io.swagger.annotations.ApiOperation;
+ import lombok.extern.slf4j.Slf4j;
+@@ -27,12 +24,12 @@
+                 .eq(Follow::getFollowerId,userId))
+         );
+     }
+-    @ApiOperation("增加评论")
++    @ApiOperation("增加关注")
+     @GetMapping("/insert")
+     public ResultVo insert(int followerId,int followedId){
+         log.info("增加评论");    return new ResultVo().setData(iFollowService.insert(followerId, followedId));
+     }
+-    @ApiOperation("删除评论")
++    @ApiOperation("取消关注")
+     @GetMapping("/remove")
+     public ResultVo remove(int followerId,int followedId){
+         log.info("删除评论");    return new ResultVo().setData(iFollowService.remove(followerId,followerId));
+Index: fleaMarket/src/main/java/com/example/fleamarket/controller/OrderController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.controller;\r\n\r\nimport com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;\r\nimport com.example.fleamarket.empty.Order;\r\nimport com.example.fleamarket.response.ResultVo;\r\nimport com.example.fleamarket.service.IOrderService;\r\nimport io.swagger.annotations.ApiOperation;\r\nimport lombok.extern.slf4j.Slf4j;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\n@Slf4j\r\n@RestController\r\n@RequestMapping(value =\"/order\")\r\npublic class OrderController {\r\n    @Autowired\r\n    IOrderService iOrderService;\r\n    @ApiOperation(\"用户购买信息查询接口\")\r\n    @GetMapping(\"/buy\")\r\n    public ResultVo buy(int buyerId){\r\n        log.info(\"用户购买信息查询接口\");   return new ResultVo().setData(iOrderService.list(new LambdaQueryWrapper<Order>()\r\n                .eq(Order::getBuyerId,buyerId))\r\n        );\r\n    }\r\n    @ApiOperation(\"用户出售信息查询接口\")\r\n    @GetMapping(\"/sold\")\r\n    public ResultVo sold(int orderId){\r\n        log.info(\"用户出售信息查询接口\"); return new ResultVo().setData(iOrderService.list(new LambdaQueryWrapper<Order>()\r\n                .eq(Order::getSolderId,orderId))\r\n        );\r\n    }\r\n    @ApiOperation(\"用户取消订单接口\")\r\n    @GetMapping(\"/cancel\")\r\n    public ResultVo cancel(int userId){\r\n        log.info(\"用户取消订单接口\"); return new ResultVo().setData(iOrderService.remove(userId));\r\n    }\r\n    @ApiOperation(\"用户修改订单接口\")\r\n    @GetMapping(\"/baseUpdate\")\r\n    public ResultVo baseUpdate(String buyerName,String phoneNumber){\r\n        log.info(\"用户修改订单接口\"); return new ResultVo().setData(iOrderService.baseUpdate(buyerName,phoneNumber));\r\n    }\r\n    @ApiOperation(\"用户收货接口\")\r\n    @GetMapping(\"/update\")\r\n    public ResultVo statusUpdate(){\r\n        log.info(\"用户收货接口\"); return new ResultVo().setData(iOrderService.statusUpdate());\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/controller/OrderController.java b/fleaMarket/src/main/java/com/example/fleamarket/controller/OrderController.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/controller/OrderController.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/controller/OrderController.java	
+@@ -1,7 +1,7 @@
+ package com.example.fleamarket.controller;
+ 
+ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+-import com.example.fleamarket.empty.Order;
++import com.example.fleamarket.entity.Order;
+ import com.example.fleamarket.response.ResultVo;
+ import com.example.fleamarket.service.IOrderService;
+ import io.swagger.annotations.ApiOperation;
+Index: fleaMarket/src/main/java/com/example/fleamarket/controller/CommentController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.controller;\r\n\r\nimport com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;\r\nimport com.example.fleamarket.empty.Comment;\r\nimport com.example.fleamarket.response.ResultVo;\r\nimport com.example.fleamarket.service.ICommentService;\r\nimport io.swagger.annotations.ApiOperation;\r\nimport lombok.extern.slf4j.Slf4j;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\n@Slf4j\r\n@RestController\r\n@RequestMapping(value =\"/commment\")\r\npublic class CommentController {\r\n    @Autowired\r\n    ICommentService iCommentService;\r\n\r\n    public CommentController(ICommentService iCommentService) {\r\n        this.iCommentService = iCommentService;\r\n    }\r\n\r\n    @ApiOperation(\"查询所有评论\")\r\n    @GetMapping(\"/getAllComment\")\r\n    public ResultVo all(int userId){\r\n        log.info(\"查询所有评论\");\r\n        return new ResultVo().setData(iCommentService.list(new LambdaQueryWrapper<Comment>()\r\n                .eq(Comment::getBeCommentedUserId,userId))\r\n        );\r\n    }\r\n    @ApiOperation(\"增加评论\")\r\n    @GetMapping(\"/insert\")\r\n    public ResultVo insert(int commentId,int beCommentId,String context){\r\n        log.info(\"增加评论\");\r\n        return new ResultVo().setData(iCommentService.insert(commentId,beCommentId,context));\r\n    }\r\n    @ApiOperation(\"删除评论\")\r\n    @GetMapping(\"/remove\")\r\n    public ResultVo remove(int commentId){\r\n        log.info(\"删除评论\");\r\n        return new ResultVo().setData(iCommentService.remove(commentId));\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/controller/CommentController.java b/fleaMarket/src/main/java/com/example/fleamarket/controller/CommentController.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/controller/CommentController.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/controller/CommentController.java	
+@@ -1,7 +1,7 @@
+ package com.example.fleamarket.controller;
+ 
+ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+-import com.example.fleamarket.empty.Comment;
++import com.example.fleamarket.entity.Comment;
+ import com.example.fleamarket.response.ResultVo;
+ import com.example.fleamarket.service.ICommentService;
+ import io.swagger.annotations.ApiOperation;
+Index: fleaMarket/src/main/java/com/example/fleamarket/controller/UserController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.controller;\r\n\r\n\r\nimport com.example.fleamarket.empty.User;\r\nimport com.example.fleamarket.response.ResultVo;\r\nimport com.example.fleamarket.service.IUserService;\r\nimport com.example.fleamarket.utils.AliyunOSSUtil;\r\nimport io.swagger.annotations.ApiOperation;\r\nimport io.swagger.annotations.ApiParam;\r\nimport lombok.extern.slf4j.Slf4j;\r\nimport org.apache.shiro.SecurityUtils;\r\nimport org.apache.shiro.authc.IncorrectCredentialsException;\r\nimport org.apache.shiro.authc.UnknownAccountException;\r\nimport org.apache.shiro.authc.UsernamePasswordToken;\r\nimport org.apache.shiro.crypto.hash.SimpleHash;\r\nimport org.apache.shiro.subject.Subject;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.PostMapping;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\nimport org.springframework.web.multipart.MultipartFile;\r\n@Slf4j\r\n@RestController\r\n@RequestMapping(value =\"/user\")\r\npublic class UserController {\r\n    @Autowired\r\n    IUserService iUserService;\r\n    @ApiOperation(\"登录接口\")\r\n    @PostMapping(\"/login\")\r\n    public ResultVo login(@ApiParam(\"用户名\")String username, @ApiParam(\"密码\")String password){\r\n        log.info(\"登录接口\"); Subject subject = SecurityUtils.getSubject();\r\n        User us = iUserService.queryById(username);\r\n        if(us!=null) {\r\n            String salt = us.getSalt();\r\n            password = new SimpleHash(\"md5\",password,salt,2).toString();\r\n        }\r\n        UsernamePasswordToken token = new UsernamePasswordToken(username,password);\r\n        try {\r\n            subject.login(token);\r\n            /*User user = (User) subject.getPrincipal();\r\n            subject.getSession().setAttribute(\"user\", user);*/\r\n            return new ResultVo().setMessage(\"登入成功\");\r\n        } catch (UnknownAccountException e) {\r\n            e.printStackTrace();\r\n            return new ResultVo().setMessage(\"用户名不存在\");\r\n        } catch (IncorrectCredentialsException e) {\r\n            e.printStackTrace();\r\n            return new ResultVo().setMessage(\"密码错误\");\r\n        }\r\n    }\r\n    @ApiOperation(\"注册接口\")\r\n    @PostMapping(\"/register\")\r\n    public ResultVo register(String username,String password) {\r\n        log.info(\"注册接口\"); if(username==null|| username.equals(\"\")){\r\n            return new ResultVo().setMessage(\"用户名不能为空\");\r\n        }else if(password==null|| password.equals(\"\")) {\r\n            return new ResultVo().setMessage(\"密码不能为空\");\r\n        }else if(iUserService.queryById(username)!=null) {\r\n            return new ResultVo().setMessage(\"用户名已被占用\");\r\n        }else {\r\n            return new ResultVo().setData(iUserService.insertUser(username,password));\r\n        }\r\n    }\r\n    @ApiOperation(\"登出接口\")\r\n    @GetMapping(\"/logout\")\r\n    public ResultVo logout() {\r\n        log.info(\"登出接口\"); Subject subject = SecurityUtils.getSubject();\r\n        subject.logout();\r\n        return new ResultVo().setMessage(\"退出成功\");\r\n    }\r\n    @ApiOperation(\"用户基础信息修改接口\")\r\n    @GetMapping(\"/baseMessageUpdate\")\r\n    public ResultVo baseUpdate(String nickname,String phone,String age,String qq){\r\n        log.info(\"用户基础信息修改接口\"); return new ResultVo().setData(iUserService.updateUer(nickname,phone,age,qq));\r\n    }\r\n    @ApiOperation(\"用户图片修改接口\")\r\n    @GetMapping(\"/photoUpdate\")\r\n    public ResultVo photoUpdate(MultipartFile file,int userId){\r\n        return new ResultVo().setData(iUserService.updatePhoto(file,userId));\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/controller/UserController.java b/fleaMarket/src/main/java/com/example/fleamarket/controller/UserController.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/controller/UserController.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/controller/UserController.java	
+@@ -1,10 +1,9 @@
+ package com.example.fleamarket.controller;
+ 
+ 
+-import com.example.fleamarket.empty.User;
++import com.example.fleamarket.entity.User;
+ import com.example.fleamarket.response.ResultVo;
+ import com.example.fleamarket.service.IUserService;
+-import com.example.fleamarket.utils.AliyunOSSUtil;
+ import io.swagger.annotations.ApiOperation;
+ import io.swagger.annotations.ApiParam;
+ import lombok.extern.slf4j.Slf4j;
+Index: fleaMarket/src/main/java/com/example/fleamarket/controller/GoodController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.controller;\r\n\r\n\r\nimport com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;\r\nimport com.example.fleamarket.empty.Goods;\r\nimport com.example.fleamarket.response.ResultVo;\r\nimport com.example.fleamarket.service.IGoodService;\r\nimport io.swagger.annotations.ApiOperation;\r\nimport io.swagger.annotations.ApiParam;\r\nimport lombok.extern.slf4j.Slf4j;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\nimport org.springframework.web.multipart.MultipartFile;\r\n\r\n@Slf4j\r\n@RestController\r\n@RequestMapping(value =\"/good\")\r\npublic class GoodController {\r\n    @Autowired\r\n    IGoodService iGoodService;\r\n    @ApiOperation(\"模糊查询商品\")\r\n    @GetMapping(\"/getGood\")\r\n    public ResultVo list(@ApiParam(\"商品名称\") String goodName){\r\n        log.info(\"模糊查询商品\");\r\n        return new ResultVo().setData(iGoodService.list(new LambdaQueryWrapper<Goods>()\r\n                .like(Goods::getGoodName,goodName))\r\n        );\r\n    }\r\n    @ApiOperation(\"查询所有商品\")\r\n    @GetMapping(\"/getAllGood\")\r\n    public ResultVo all(){\r\n        log.info(\"查询所有商品\");\r\n        return new ResultVo().setData(iGoodService.list()\r\n        );\r\n    }\r\n    @ApiOperation(\"根据类别查询商品\")\r\n    @GetMapping(\"/getGoodBySort\")\r\n    public ResultVo sort(@ApiParam(\"商品类别\") String goodSort){\r\n        log.info(\"根据类别查询商品\");\r\n        return new ResultVo().setData(iGoodService.list(new LambdaQueryWrapper<Goods>()\r\n                .eq(Goods::getGoodSort,goodSort))\r\n        );\r\n    }\r\n    @ApiOperation(\"根据id查询商品的详细信息\")\r\n    @GetMapping(\"/getGoodById\")\r\n    public ResultVo list(@ApiParam(\"商品id\") int goodId){\r\n        log.info(\"根据id查询商品的详细信息\");\r\n        return new ResultVo().setData(iGoodService.queryById(goodId));\r\n    }\r\n    @ApiOperation(\"商品基础信息修改\")\r\n    @GetMapping(\"/baseMessageUpdate\")\r\n    public ResultVo baseUpdate(String goodName,String summary,String detail){\r\n        log.info(\"商品基础信息修改\");\r\n        return new ResultVo().setData(iGoodService.update(goodName,summary,detail));\r\n    }\r\n    @ApiOperation(\"查询所有未审核商品\")\r\n    @GetMapping(\"/select\")\r\n    public ResultVo select(){\r\n        log.info(\"查询所有未审核商品\");\r\n        return new ResultVo().setData(iGoodService.list(new LambdaQueryWrapper<Goods>()\r\n                .eq(Goods::getApproved,false))\r\n        );\r\n    }\r\n    @ApiOperation(\"商品图片修改接口\")\r\n    @GetMapping(\"/photoUpdate\")\r\n    public ResultVo photoUpdate(MultipartFile file,int goodId){\r\n        log.info(\"商品图片修改接口\");\r\n        return new ResultVo().setData(iGoodService.updatePhoto(file,goodId));\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/controller/GoodController.java b/fleaMarket/src/main/java/com/example/fleamarket/controller/GoodController.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/controller/GoodController.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/controller/GoodController.java	
+@@ -2,7 +2,7 @@
+ 
+ 
+ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+-import com.example.fleamarket.empty.Goods;
++import com.example.fleamarket.entity.Goods;
+ import com.example.fleamarket.response.ResultVo;
+ import com.example.fleamarket.service.IGoodService;
+ import io.swagger.annotations.ApiOperation;
+Index: fleaMarket/src/main/java/com/example/fleamarket/service/IHistoryService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.service;\r\n\r\nimport com.baomidou.mybatisplus.extension.service.IService;\r\nimport com.example.fleamarket.empty.History;\r\n\r\npublic interface IHistoryService extends IService<History> {\r\n    Boolean insert(int userId,int goodId);\r\n    Boolean remove(int userId,int goodId);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/service/IHistoryService.java b/fleaMarket/src/main/java/com/example/fleamarket/service/IHistoryService.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/service/IHistoryService.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/service/IHistoryService.java	
+@@ -1,7 +1,7 @@
+ package com.example.fleamarket.service;
+ 
+ import com.baomidou.mybatisplus.extension.service.IService;
+-import com.example.fleamarket.empty.History;
++import com.example.fleamarket.entity.History;
+ 
+ public interface IHistoryService extends IService<History> {
+     Boolean insert(int userId,int goodId);
+Index: fleaMarket/src/main/java/com/example/fleamarket/service/IUserService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.service;\r\n\r\n\r\nimport com.baomidou.mybatisplus.extension.service.IService;\r\nimport com.example.fleamarket.empty.User;\r\nimport org.springframework.web.multipart.MultipartFile;\r\n\r\npublic interface IUserService extends IService<User> {\r\n    User queryById(String id);\r\n\r\n    Boolean insertUser(String userName, String passWord);\r\n\r\n    Boolean updateUer(String nickname,String phone,String age,String qq);\r\n\r\n    Boolean updatePhoto(MultipartFile file,int userId);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/service/IUserService.java b/fleaMarket/src/main/java/com/example/fleamarket/service/IUserService.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/service/IUserService.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/service/IUserService.java	
+@@ -2,7 +2,7 @@
+ 
+ 
+ import com.baomidou.mybatisplus.extension.service.IService;
+-import com.example.fleamarket.empty.User;
++import com.example.fleamarket.entity.User;
+ import org.springframework.web.multipart.MultipartFile;
+ 
+ public interface IUserService extends IService<User> {
+Index: fleaMarket/src/main/java/com/example/fleamarket/service/IFollowService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.service;\r\n\r\nimport com.baomidou.mybatisplus.extension.service.IService;\r\nimport com.example.fleamarket.empty.Follow;\r\n\r\npublic interface IFollowService extends IService<Follow> {\r\n    Boolean remove(int followerId,int followedId);\r\n    Boolean insert(int followerId,int followedId);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/service/IFollowService.java b/fleaMarket/src/main/java/com/example/fleamarket/service/IFollowService.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/service/IFollowService.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/service/IFollowService.java	
+@@ -1,7 +1,7 @@
+ package com.example.fleamarket.service;
+ 
+ import com.baomidou.mybatisplus.extension.service.IService;
+-import com.example.fleamarket.empty.Follow;
++import com.example.fleamarket.entity.Follow;
+ 
+ public interface IFollowService extends IService<Follow> {
+     Boolean remove(int followerId,int followedId);
+Index: fleaMarket/src/main/java/com/example/fleamarket/service/IOrderService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.service;\r\n\r\nimport com.baomidou.mybatisplus.extension.service.IService;\r\nimport com.example.fleamarket.empty.Order;\r\n\r\npublic interface IOrderService extends IService<Order> {\r\n    Boolean remove(int orderId);\r\n    Boolean baseUpdate(String buyerName,String phoneNumber);\r\n    Boolean statusUpdate();\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/service/IOrderService.java b/fleaMarket/src/main/java/com/example/fleamarket/service/IOrderService.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/service/IOrderService.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/service/IOrderService.java	
+@@ -1,7 +1,7 @@
+ package com.example.fleamarket.service;
+ 
+ import com.baomidou.mybatisplus.extension.service.IService;
+-import com.example.fleamarket.empty.Order;
++import com.example.fleamarket.entity.Order;
+ 
+ public interface IOrderService extends IService<Order> {
+     Boolean remove(int orderId);
+Index: fleaMarket/src/main/java/com/example/fleamarket/service/IGoodService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.service;\r\n\r\n\r\nimport com.baomidou.mybatisplus.extension.service.IService;\r\nimport com.example.fleamarket.empty.Goods;\r\nimport org.springframework.web.multipart.MultipartFile;\r\n\r\npublic interface IGoodService extends IService<Goods> {\r\n    Goods queryById(int goodId);\r\n\r\n    Boolean update(String goodName,String summary,String detail);\r\n\r\n    Boolean updatePhoto(MultipartFile file,int goodId);\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/service/IGoodService.java b/fleaMarket/src/main/java/com/example/fleamarket/service/IGoodService.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/service/IGoodService.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/service/IGoodService.java	
+@@ -2,7 +2,7 @@
+ 
+ 
+ import com.baomidou.mybatisplus.extension.service.IService;
+-import com.example.fleamarket.empty.Goods;
++import com.example.fleamarket.entity.Goods;
+ import org.springframework.web.multipart.MultipartFile;
+ 
+ public interface IGoodService extends IService<Goods> {
+Index: fleaMarket/src/main/java/com/example/fleamarket/service/ICollectionService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.service;\r\n\r\n\r\nimport com.baomidou.mybatisplus.extension.service.IService;\r\nimport com.example.fleamarket.empty.Collection;\r\n\r\n\r\npublic interface ICollectionService extends IService<Collection> {\r\n    Boolean insert(int userId,int goodId);\r\n    Boolean remove(int userId,int goodId);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/service/ICollectionService.java b/fleaMarket/src/main/java/com/example/fleamarket/service/ICollectionService.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/service/ICollectionService.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/service/ICollectionService.java	
+@@ -2,7 +2,7 @@
+ 
+ 
+ import com.baomidou.mybatisplus.extension.service.IService;
+-import com.example.fleamarket.empty.Collection;
++import com.example.fleamarket.entity.Collection;
+ 
+ 
+ public interface ICollectionService extends IService<Collection> {
+Index: fleaMarket/src/main/java/com/example/fleamarket/service/ICommentService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.service;\r\n\r\nimport com.baomidou.mybatisplus.extension.service.IService;\r\nimport com.example.fleamarket.empty.Comment;\r\n\r\npublic interface ICommentService extends IService<Comment> {\r\n    Boolean insert(int commentId,int becommentedId,String Context);\r\n    Boolean remove(int commentId);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/service/ICommentService.java b/fleaMarket/src/main/java/com/example/fleamarket/service/ICommentService.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/service/ICommentService.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/service/ICommentService.java	
+@@ -1,7 +1,7 @@
+ package com.example.fleamarket.service;
+ 
+ import com.baomidou.mybatisplus.extension.service.IService;
+-import com.example.fleamarket.empty.Comment;
++import com.example.fleamarket.entity.Comment;
+ 
+ public interface ICommentService extends IService<Comment> {
+     Boolean insert(int commentId,int becommentedId,String Context);
+Index: fleaMarket/src/main/java/com/example/fleamarket/service/impl/OrderService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.service.impl;\r\n\r\nimport com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;\r\nimport com.baomidou.mybatisplus.core.toolkit.Wrappers;\r\nimport com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;\r\nimport com.example.fleamarket.dao.IOrderDao;\r\nimport com.example.fleamarket.empty.Order;\r\nimport com.example.fleamarket.service.IOrderService;\r\nimport org.springframework.stereotype.Service;\r\n\r\n@Service\r\npublic class OrderService extends ServiceImpl<IOrderDao, Order> implements IOrderService {\r\n\r\n    @Override\r\n    public Boolean remove(int orderId) {\r\n        LambdaQueryWrapper<Order> lwq = Wrappers.lambdaQuery();\r\n        lwq.eq(Order::getOrderId,orderId);\r\n        return remove(lwq);\r\n    }\r\n\r\n    @Override\r\n    public Boolean statusUpdate() {\r\n       Order order = new Order();\r\n       order.setOrderStatus(true);\r\n       return saveOrUpdate(order);\r\n    }\r\n\r\n    @Override\r\n    public Boolean baseUpdate(String buyerName, String phoneNumber) {\r\n        Order order = new Order();\r\n        order.setBuyerName(buyerName);\r\n        order.setPhoneNumber(phoneNumber);\r\n        return saveOrUpdate(order);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/service/impl/OrderService.java b/fleaMarket/src/main/java/com/example/fleamarket/service/impl/OrderService.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/service/impl/OrderService.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/service/impl/OrderService.java	
+@@ -4,7 +4,7 @@
+ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+ import com.example.fleamarket.dao.IOrderDao;
+-import com.example.fleamarket.empty.Order;
++import com.example.fleamarket.entity.Order;
+ import com.example.fleamarket.service.IOrderService;
+ import org.springframework.stereotype.Service;
+ 
+Index: fleaMarket/src/main/java/com/example/fleamarket/service/impl/FollowService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.service.impl;\r\n\r\n\r\nimport com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;\r\nimport com.baomidou.mybatisplus.core.toolkit.Wrappers;\r\nimport com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;\r\nimport com.example.fleamarket.dao.IFollowDao;\r\nimport com.example.fleamarket.empty.Follow;\r\nimport com.example.fleamarket.service.IFollowService;\r\nimport org.springframework.stereotype.Service;\r\n\r\n@Service\r\npublic class FollowService extends ServiceImpl<IFollowDao, Follow> implements IFollowService {\r\n\tpublic Boolean insert(int followerId,int followedId){\r\n\t\tFollow follow = new Follow();\r\n\t\tfollow.setFollowedId(followedId);\r\n\t\tfollow.setFollowerId(followerId);\r\n\t\treturn save(follow);\r\n\t}\r\n\tpublic Boolean remove(int followerId,int followedId) {\r\n\t\tLambdaQueryWrapper<Follow> lwq = Wrappers.lambdaQuery();\r\n\t\tlwq.eq(Follow::getFollowerId,followerId).eq(Follow::getFollowedId,followedId);\r\n\t\treturn remove(lwq);\r\n\t}\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/service/impl/FollowService.java b/fleaMarket/src/main/java/com/example/fleamarket/service/impl/FollowService.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/service/impl/FollowService.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/service/impl/FollowService.java	
+@@ -5,7 +5,7 @@
+ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+ import com.example.fleamarket.dao.IFollowDao;
+-import com.example.fleamarket.empty.Follow;
++import com.example.fleamarket.entity.Follow;
+ import com.example.fleamarket.service.IFollowService;
+ import org.springframework.stereotype.Service;
+ 
+Index: fleaMarket/src/main/java/com/example/fleamarket/service/impl/GoodsService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.service.impl;\r\n\r\nimport com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;\r\nimport com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;\r\nimport com.example.fleamarket.dao.IGoodsDao;\r\n\r\nimport com.example.fleamarket.empty.Goods;\r\nimport com.example.fleamarket.service.IGoodService;\r\nimport com.example.fleamarket.utils.AliyunOSSUtil;\r\nimport org.springframework.stereotype.Service;\r\nimport org.springframework.web.multipart.MultipartFile;\r\n\r\n@Service\r\npublic class GoodsService extends ServiceImpl<IGoodsDao, Goods> implements IGoodService {\r\n    public Goods queryById(int goodId) {\r\n        return getOne(new LambdaQueryWrapper<Goods>()\r\n                .eq(Goods::getGoodId,goodId)\r\n        );\r\n    }\r\n\r\n    @Override\r\n    public Boolean update(String goodName, String summary, String detail) {\r\n        Goods goods = new Goods();\r\n        goods.setGoodName(goodName);\r\n        goods.setDetail(summary);\r\n        goods.setDetail(detail);\r\n        return saveOrUpdate(goods);\r\n    }\r\n    @Override\r\n    public Boolean updatePhoto(MultipartFile file,int goodId) {\r\n        String url = AliyunOSSUtil.upload(file);\r\n        Goods goods = new Goods();\r\n        goods.setImage(url);\r\n        goods.setGoodId(goodId);\r\n        return saveOrUpdate(goods);\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/service/impl/GoodsService.java b/fleaMarket/src/main/java/com/example/fleamarket/service/impl/GoodsService.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/service/impl/GoodsService.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/service/impl/GoodsService.java	
+@@ -4,7 +4,7 @@
+ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+ import com.example.fleamarket.dao.IGoodsDao;
+ 
+-import com.example.fleamarket.empty.Goods;
++import com.example.fleamarket.entity.Goods;
+ import com.example.fleamarket.service.IGoodService;
+ import com.example.fleamarket.utils.AliyunOSSUtil;
+ import org.springframework.stereotype.Service;
+Index: fleaMarket/src/main/java/com/example/fleamarket/service/impl/HistoryService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.service.impl;\r\n\r\n\r\nimport com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;\r\nimport com.baomidou.mybatisplus.core.toolkit.Wrappers;\r\nimport com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;\r\nimport com.example.fleamarket.dao.IHistoryDao;\r\nimport com.example.fleamarket.empty.History;\r\nimport com.example.fleamarket.service.IHistoryService;\r\nimport org.springframework.stereotype.Service;\r\n\r\n@Service\r\npublic class HistoryService extends ServiceImpl<IHistoryDao, History> implements IHistoryService {\r\n    public Boolean insert(int userId,int goodId){\r\n        History history =new History();\r\n        history.setGoodsId(goodId);\r\n        history.setUserId(userId);\r\n        return save(history);\r\n    }\r\n    public Boolean remove(int userId,int goodId) {\r\n        LambdaQueryWrapper<History> lwq = Wrappers.lambdaQuery();\r\n        lwq.eq(History::getUserId,userId).eq(History::getGoodsId,goodId);\r\n        return remove(lwq);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/service/impl/HistoryService.java b/fleaMarket/src/main/java/com/example/fleamarket/service/impl/HistoryService.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/service/impl/HistoryService.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/service/impl/HistoryService.java	
+@@ -5,7 +5,7 @@
+ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+ import com.example.fleamarket.dao.IHistoryDao;
+-import com.example.fleamarket.empty.History;
++import com.example.fleamarket.entity.History;
+ import com.example.fleamarket.service.IHistoryService;
+ import org.springframework.stereotype.Service;
+ 
+Index: fleaMarket/src/main/java/com/example/fleamarket/service/impl/CommentService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.service.impl;\r\n\r\nimport com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;\r\nimport com.baomidou.mybatisplus.core.toolkit.Wrappers;\r\nimport com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;\r\nimport com.example.fleamarket.dao.ICommentDao;\r\nimport com.example.fleamarket.empty.Comment;\r\nimport com.example.fleamarket.service.ICommentService;\r\nimport org.springframework.stereotype.Service;\r\n\r\n\r\n@Service\r\npublic class CommentService extends ServiceImpl<ICommentDao, Comment> implements ICommentService {\r\n\tpublic Boolean insert(int commentId,int becommentedId,String Context){\r\n\t\tComment comment = new Comment();\r\n\t\tcomment.setCommentUserId(commentId);\r\n\t\tcomment.setBeCommentedUserId(becommentedId);\r\n\t\tcomment.setContent(Context);\r\n\t\treturn save(comment);\r\n\t}\r\n\tpublic Boolean remove(int commentId) {\r\n\t\tLambdaQueryWrapper<Comment> lwq = Wrappers.lambdaQuery();\r\n\t\tlwq.eq(Comment::getCommentId,commentId);\r\n\t\treturn remove(lwq);\r\n\t}\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/service/impl/CommentService.java b/fleaMarket/src/main/java/com/example/fleamarket/service/impl/CommentService.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/service/impl/CommentService.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/service/impl/CommentService.java	
+@@ -4,7 +4,7 @@
+ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+ import com.example.fleamarket.dao.ICommentDao;
+-import com.example.fleamarket.empty.Comment;
++import com.example.fleamarket.entity.Comment;
+ import com.example.fleamarket.service.ICommentService;
+ import org.springframework.stereotype.Service;
+ 
+Index: fleaMarket/src/main/java/com/example/fleamarket/service/impl/CollectionService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.service.impl;\r\n\r\nimport com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;\r\nimport com.baomidou.mybatisplus.core.toolkit.Wrappers;\r\nimport com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;\r\nimport com.example.fleamarket.dao.ICollectionDao;\r\nimport com.example.fleamarket.empty.Collection;\r\nimport com.example.fleamarket.service.ICollectionService;\r\nimport org.springframework.stereotype.Service;\r\n\r\n@Service\r\npublic class CollectionService extends ServiceImpl<ICollectionDao,Collection> implements ICollectionService {\r\n    public Boolean insert(int userId,int goodId){\r\n        Collection collection = new Collection();\r\n        collection.setUserId(userId);\r\n        collection.setGoodId(goodId);\r\n        return save(collection);\r\n    }\r\n    public Boolean remove(int userId,int goodId) {\r\n        LambdaQueryWrapper<Collection> lwq = Wrappers.lambdaQuery();\r\n        lwq.eq(Collection::getUserId,userId).eq(Collection::getGoodId,goodId);\r\n        return remove(lwq);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/service/impl/CollectionService.java b/fleaMarket/src/main/java/com/example/fleamarket/service/impl/CollectionService.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/service/impl/CollectionService.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/service/impl/CollectionService.java	
+@@ -4,7 +4,7 @@
+ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+ import com.example.fleamarket.dao.ICollectionDao;
+-import com.example.fleamarket.empty.Collection;
++import com.example.fleamarket.entity.Collection;
+ import com.example.fleamarket.service.ICollectionService;
+ import org.springframework.stereotype.Service;
+ 
+Index: fleaMarket/src/main/java/com/example/fleamarket/service/impl/UserService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.service.impl;\r\n\r\nimport com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;\r\nimport com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;\r\nimport com.example.fleamarket.dao.IUserDao;\r\n\r\nimport com.example.fleamarket.empty.User;\r\nimport com.example.fleamarket.service.IUserService;\r\nimport com.example.fleamarket.utils.AliyunOSSUtil;\r\nimport org.apache.shiro.crypto.SecureRandomNumberGenerator;\r\nimport org.apache.shiro.crypto.hash.Md5Hash;\r\nimport org.springframework.stereotype.Service;\r\nimport org.springframework.web.multipart.MultipartFile;\r\n\r\n@Service\r\npublic class UserService extends ServiceImpl<IUserDao, User> implements IUserService {\r\n\r\n\t@Override\r\n\tpublic User queryById(String userName) {\r\n\t\treturn getOne(new LambdaQueryWrapper<User>()\r\n\t\t\t\t.eq(User::getUsername,userName)\r\n\t\t);\r\n\t}\r\n\t@Override\r\n\tpublic Boolean insertUser(String username, String password) {\r\n\t\tUser user = new User();\r\n\t\tString salt = new SecureRandomNumberGenerator().nextBytes().toString();\r\n\t\tMd5Hash MD5 = new Md5Hash(password,salt,2);\r\n\t\tuser.setPassword(MD5.toHex());\r\n\t\tuser.setUsername(username);\r\n\t\tuser.setSalt(salt);\r\n\t\treturn save(user);\r\n\t}\r\n\tpublic Boolean updateUer(String nickname,String phone,String age,String qq){\r\n\t\tUser user = new User();\r\n\t\tuser.setAge(age);\r\n\t\tuser.setNickname(nickname);\r\n\t\tuser.setPhone(phone);\r\n\t\tuser.setQq(qq);\r\n\t\treturn saveOrUpdate(user);\r\n\t}\r\n\r\n\t@Override\r\n\tpublic Boolean updatePhoto(MultipartFile file,int userId) {\r\n\t\tString url = AliyunOSSUtil.upload(file);\r\n\t\tUser user = new User();\r\n\t\tuser.setPhone(url);\r\n\t\tuser.setUserId(userId);\r\n\t\treturn saveOrUpdate(user);\r\n\t}\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/service/impl/UserService.java b/fleaMarket/src/main/java/com/example/fleamarket/service/impl/UserService.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/service/impl/UserService.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/service/impl/UserService.java	
+@@ -4,7 +4,7 @@
+ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+ import com.example.fleamarket.dao.IUserDao;
+ 
+-import com.example.fleamarket.empty.User;
++import com.example.fleamarket.entity.User;
+ import com.example.fleamarket.service.IUserService;
+ import com.example.fleamarket.utils.AliyunOSSUtil;
+ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+Index: fleaMarket/src/main/java/com/example/fleamarket/controller/HistoryController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.controller;\r\n\r\nimport com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;\r\nimport com.example.fleamarket.empty.History;\r\nimport com.example.fleamarket.response.ResultVo;\r\nimport com.example.fleamarket.service.IHistoryService;\r\nimport io.swagger.annotations.ApiOperation;\r\nimport lombok.extern.slf4j.Slf4j;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\n@Slf4j\r\n@RestController\r\n@RequestMapping(value =\"/history\")\r\npublic class HistoryController {\r\n    @Autowired\r\n    IHistoryService iHistoryService;\r\n    @ApiOperation(\"查询所有历史\")\r\n    @GetMapping(\"/getAllHistory\")\r\n    public ResultVo all(int userId){\r\n        log.info(\"查询所有历史\");\r\n        return new ResultVo().setData(iHistoryService.list(new LambdaQueryWrapper<History>()\r\n                .eq(History::getUserId,userId))\r\n        );\r\n    }\r\n    @ApiOperation(\"增加历史\")\r\n    @GetMapping(\"/insert\")\r\n    public ResultVo insert(int userId,int goodId){\r\n        log.info(\"增加历史\");\r\n        return new ResultVo().setData(iHistoryService.insert(userId,goodId));\r\n    }\r\n    @ApiOperation(\"删除评论\")\r\n    @GetMapping(\"/remove\")\r\n    public ResultVo remove(int userId,int goodId){\r\n        log.info(\"删除评论\");\r\n        return new ResultVo().setData(iHistoryService.remove(userId,goodId));\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/controller/HistoryController.java b/fleaMarket/src/main/java/com/example/fleamarket/controller/HistoryController.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/controller/HistoryController.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/controller/HistoryController.java	
+@@ -1,7 +1,7 @@
+ package com.example.fleamarket.controller;
+ 
+ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+-import com.example.fleamarket.empty.History;
++import com.example.fleamarket.entity.History;
+ import com.example.fleamarket.response.ResultVo;
+ import com.example.fleamarket.service.IHistoryService;
+ import io.swagger.annotations.ApiOperation;
+Index: fleaMarket/src/main/resources/application.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>spring:\r\n  datasource:\r\n    driver-class-name: com.mysql.cj.jdbc.Driver\r\n    url: jdbc:mysql://127.0.0.1:3306/market?&character_set_server=utf8mb4&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true\r\n    username: root\r\n    password: 123456\r\n  servlet:\r\n    context-path: /joinus\r\n    multipart:\r\n      max-file-size: 1024MB\r\n      max-request-size: 1024MB\r\n  mvc:\r\n    pathmatch:\r\n      matching-strategy: ANT_PATH_MATCHER\r\n  op-patterns: com.example.fleamarket.service.*\r\n  cloud:\r\n    nacos:\r\n      discovery:\r\n        server-addr: 127.0.0.1:8848\r\n    alicloud:\r\n      access-key: LTAI5t6WAjybmXMxC9L5a8ov\r\n      secret-key: AKYs2rqmQSGuCe4pHOMXtBDHJ9cClM\r\n      oss:\r\n        endpoint: oss-cn-beijing.aliyuncs.com\r\n        bucketName: flea--market\r\n        filehost: fleaMarket\r\n\r\n\r\n\r\n\r\nmybatis:\r\n  mapper-locations:classpath:mapper/*.xml\r\n  type-aliases-package:com.example.ibookreader.entity\r\n  configuration:log-impl:org.apache.ibatis.logging.stdout.StdOutImpl\r\nlogging:\r\n  D:/text/\r\nserver:\r\n  port: 8989\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/resources/application.yml b/fleaMarket/src/main/resources/application.yml
+--- a/fleaMarket/src/main/resources/application.yml	
++++ b/fleaMarket/src/main/resources/application.yml	
+@@ -3,7 +3,7 @@
+     driver-class-name: com.mysql.cj.jdbc.Driver
+     url: jdbc:mysql://127.0.0.1:3306/market?&character_set_server=utf8mb4&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true
+     username: root
+-    password: 123456
++    password: root
+   servlet:
+     context-path: /joinus
+     multipart:
+Index: fleaMarket/src/main/java/com/example/fleamarket/dao/IGoodsDao.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.dao;\r\n\r\nimport com.baomidou.mybatisplus.core.mapper.BaseMapper;\r\nimport com.example.fleamarket.empty.Goods;\r\nimport org.springframework.stereotype.Repository;\r\n\r\n@Repository\r\npublic interface IGoodsDao extends BaseMapper<Goods> {\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/dao/IGoodsDao.java b/fleaMarket/src/main/java/com/example/fleamarket/dao/IGoodsDao.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/dao/IGoodsDao.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/dao/IGoodsDao.java	
+@@ -1,7 +1,7 @@
+ package com.example.fleamarket.dao;
+ 
+ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+-import com.example.fleamarket.empty.Goods;
++import com.example.fleamarket.entity.Goods;
+ import org.springframework.stereotype.Repository;
+ 
+ @Repository
+Index: fleaMarket/src/main/java/com/example/fleamarket/dao/IHistoryDao.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.dao;\r\n\r\nimport com.baomidou.mybatisplus.core.mapper.BaseMapper;\r\nimport com.example.fleamarket.empty.Goods;\r\nimport com.example.fleamarket.empty.History;\r\nimport org.springframework.stereotype.Repository;\r\n\r\n@Repository\r\npublic interface IHistoryDao extends BaseMapper<History> {\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/dao/IHistoryDao.java b/fleaMarket/src/main/java/com/example/fleamarket/dao/IHistoryDao.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/dao/IHistoryDao.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/dao/IHistoryDao.java	
+@@ -1,8 +1,7 @@
+ package com.example.fleamarket.dao;
+ 
+ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+-import com.example.fleamarket.empty.Goods;
+-import com.example.fleamarket.empty.History;
++import com.example.fleamarket.entity.History;
+ import org.springframework.stereotype.Repository;
+ 
+ @Repository
+Index: fleaMarket/src/main/java/com/example/fleamarket/dao/ICommentDao.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.dao;\r\n\r\nimport com.baomidou.mybatisplus.core.mapper.BaseMapper;\r\nimport com.example.fleamarket.empty.Comment;\r\nimport org.springframework.stereotype.Repository;\r\n\r\n@Repository\r\npublic interface ICommentDao extends BaseMapper<Comment> {\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/dao/ICommentDao.java b/fleaMarket/src/main/java/com/example/fleamarket/dao/ICommentDao.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/dao/ICommentDao.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/dao/ICommentDao.java	
+@@ -1,7 +1,7 @@
+ package com.example.fleamarket.dao;
+ 
+ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+-import com.example.fleamarket.empty.Comment;
++import com.example.fleamarket.entity.Comment;
+ import org.springframework.stereotype.Repository;
+ 
+ @Repository
+Index: fleaMarket/src/main/java/com/example/fleamarket/dao/IOrderDao.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.dao;\r\n\r\nimport com.baomidou.mybatisplus.core.mapper.BaseMapper;\r\nimport com.example.fleamarket.empty.Order;\r\nimport org.springframework.stereotype.Repository;\r\n\r\n@Repository\r\npublic interface IOrderDao extends BaseMapper<Order> {\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/dao/IOrderDao.java b/fleaMarket/src/main/java/com/example/fleamarket/dao/IOrderDao.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/dao/IOrderDao.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/dao/IOrderDao.java	
+@@ -1,7 +1,7 @@
+ package com.example.fleamarket.dao;
+ 
+ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+-import com.example.fleamarket.empty.Order;
++import com.example.fleamarket.entity.Order;
+ import org.springframework.stereotype.Repository;
+ 
+ @Repository
+Index: fleaMarket/src/main/java/com/example/fleamarket/dao/ICollectionDao.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.dao;\r\n\r\nimport com.baomidou.mybatisplus.core.mapper.BaseMapper;\r\nimport com.example.fleamarket.empty.Collection;\r\nimport org.springframework.stereotype.Repository;\r\n\r\n@Repository\r\npublic interface ICollectionDao extends BaseMapper<Collection> {\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/dao/ICollectionDao.java b/fleaMarket/src/main/java/com/example/fleamarket/dao/ICollectionDao.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/dao/ICollectionDao.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/dao/ICollectionDao.java	
+@@ -1,7 +1,7 @@
+ package com.example.fleamarket.dao;
+ 
+ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+-import com.example.fleamarket.empty.Collection;
++import com.example.fleamarket.entity.Collection;
+ import org.springframework.stereotype.Repository;
+ 
+ @Repository
+Index: fleaMarket/src/main/java/com/example/fleamarket/dao/IUserDao.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.dao;\r\n\r\nimport com.baomidou.mybatisplus.core.mapper.BaseMapper;\r\nimport com.example.fleamarket.empty.User;\r\nimport org.springframework.stereotype.Repository;\r\n\r\n@Repository\r\npublic interface IUserDao extends BaseMapper<User> {\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/dao/IUserDao.java b/fleaMarket/src/main/java/com/example/fleamarket/dao/IUserDao.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/dao/IUserDao.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/dao/IUserDao.java	
+@@ -1,7 +1,7 @@
+ package com.example.fleamarket.dao;
+ 
+ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+-import com.example.fleamarket.empty.User;
++import com.example.fleamarket.entity.User;
+ import org.springframework.stereotype.Repository;
+ 
+ @Repository
+Index: fleaMarket/src/main/java/com/example/fleamarket/dao/IFollowDao.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.dao;\r\n\r\nimport com.baomidou.mybatisplus.core.mapper.BaseMapper;\r\nimport com.example.fleamarket.empty.Comment;\r\nimport com.example.fleamarket.empty.Follow;\r\nimport org.springframework.stereotype.Repository;\r\n\r\n@Repository\r\npublic interface IFollowDao extends BaseMapper<Follow> {\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/dao/IFollowDao.java b/fleaMarket/src/main/java/com/example/fleamarket/dao/IFollowDao.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/dao/IFollowDao.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/dao/IFollowDao.java	
+@@ -1,8 +1,7 @@
+ package com.example.fleamarket.dao;
+ 
+ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+-import com.example.fleamarket.empty.Comment;
+-import com.example.fleamarket.empty.Follow;
++import com.example.fleamarket.entity.Follow;
+ import org.springframework.stereotype.Repository;
+ 
+ @Repository
+Index: .idea/uiDesigner.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/uiDesigner.xml b/.idea/uiDesigner.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/uiDesigner.xml	
+@@ -0,0 +1,124 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="Palette2">
++    <group name="Swing">
++      <item class="com.intellij.uiDesigner.HSpacer" tooltip-text="Horizontal Spacer" icon="/com/intellij/uiDesigner/icons/hspacer.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="1" hsize-policy="6" anchor="0" fill="1" />
++      </item>
++      <item class="com.intellij.uiDesigner.VSpacer" tooltip-text="Vertical Spacer" icon="/com/intellij/uiDesigner/icons/vspacer.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="1" anchor="0" fill="2" />
++      </item>
++      <item class="javax.swing.JPanel" icon="/com/intellij/uiDesigner/icons/panel.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3" />
++      </item>
++      <item class="javax.swing.JScrollPane" icon="/com/intellij/uiDesigner/icons/scrollPane.png" removable="false" auto-create-binding="false" can-attach-label="true">
++        <default-constraints vsize-policy="7" hsize-policy="7" anchor="0" fill="3" />
++      </item>
++      <item class="javax.swing.JButton" icon="/com/intellij/uiDesigner/icons/button.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="3" anchor="0" fill="1" />
++        <initial-values>
++          <property name="text" value="Button" />
++        </initial-values>
++      </item>
++      <item class="javax.swing.JRadioButton" icon="/com/intellij/uiDesigner/icons/radioButton.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
++        <initial-values>
++          <property name="text" value="RadioButton" />
++        </initial-values>
++      </item>
++      <item class="javax.swing.JCheckBox" icon="/com/intellij/uiDesigner/icons/checkBox.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
++        <initial-values>
++          <property name="text" value="CheckBox" />
++        </initial-values>
++      </item>
++      <item class="javax.swing.JLabel" icon="/com/intellij/uiDesigner/icons/label.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="0" anchor="8" fill="0" />
++        <initial-values>
++          <property name="text" value="Label" />
++        </initial-values>
++      </item>
++      <item class="javax.swing.JTextField" icon="/com/intellij/uiDesigner/icons/textField.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
++          <preferred-size width="150" height="-1" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JPasswordField" icon="/com/intellij/uiDesigner/icons/passwordField.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
++          <preferred-size width="150" height="-1" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JFormattedTextField" icon="/com/intellij/uiDesigner/icons/formattedTextField.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
++          <preferred-size width="150" height="-1" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JTextArea" icon="/com/intellij/uiDesigner/icons/textArea.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JTextPane" icon="/com/intellij/uiDesigner/icons/textPane.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JEditorPane" icon="/com/intellij/uiDesigner/icons/editorPane.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JComboBox" icon="/com/intellij/uiDesigner/icons/comboBox.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="2" anchor="8" fill="1" />
++      </item>
++      <item class="javax.swing.JTable" icon="/com/intellij/uiDesigner/icons/table.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JList" icon="/com/intellij/uiDesigner/icons/list.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="2" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JTree" icon="/com/intellij/uiDesigner/icons/tree.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JTabbedPane" icon="/com/intellij/uiDesigner/icons/tabbedPane.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
++          <preferred-size width="200" height="200" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JSplitPane" icon="/com/intellij/uiDesigner/icons/splitPane.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
++          <preferred-size width="200" height="200" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JSpinner" icon="/com/intellij/uiDesigner/icons/spinner.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
++      </item>
++      <item class="javax.swing.JSlider" icon="/com/intellij/uiDesigner/icons/slider.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
++      </item>
++      <item class="javax.swing.JSeparator" icon="/com/intellij/uiDesigner/icons/separator.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3" />
++      </item>
++      <item class="javax.swing.JProgressBar" icon="/com/intellij/uiDesigner/icons/progressbar.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1" />
++      </item>
++      <item class="javax.swing.JToolBar" icon="/com/intellij/uiDesigner/icons/toolbar.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1">
++          <preferred-size width="-1" height="20" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JToolBar$Separator" icon="/com/intellij/uiDesigner/icons/toolbarSeparator.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="0" anchor="0" fill="1" />
++      </item>
++      <item class="javax.swing.JScrollBar" icon="/com/intellij/uiDesigner/icons/scrollbar.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="0" anchor="0" fill="2" />
++      </item>
++    </group>
++  </component>
++</project>
+\ No newline at end of file
+Index: fleaMarket/src/main/java/com/example/fleamarket/shrio/UserRealm.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.fleamarket.shrio;\r\n\r\nimport com.example.fleamarket.empty.User;\r\nimport com.example.fleamarket.service.impl.UserService;\r\nimport org.apache.shiro.SecurityUtils;\r\nimport org.apache.shiro.authc.*;\r\nimport org.apache.shiro.authz.AuthorizationInfo;\r\nimport org.apache.shiro.authz.SimpleAuthorizationInfo;\r\nimport org.apache.shiro.realm.AuthorizingRealm;\r\nimport org.apache.shiro.subject.PrincipalCollection;\r\nimport org.apache.shiro.subject.Subject;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\n\r\nimport java.util.List;\r\n\r\npublic class UserRealm extends AuthorizingRealm {\r\n    @Autowired\r\n    private UserService userService;\r\n\r\n    /**\r\n     * 执行授权逻辑\r\n     * 只要访问加上授权的资源都会调用改方法\r\n     * */\r\n    @Override\r\n    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {\r\n        //给资源进行授权\r\n        SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();\r\n        info.addStringPermission(\"user:add\");\r\n        //到数据库查询当前用户的授权的字符串\r\n        Subject subject= SecurityUtils.getSubject();\r\n        User user =(User) subject.getPrincipal();\r\n        info.addStringPermission(user.getRole());\r\n        return info;\r\n    }\r\n    /**\r\n     * 执行认证逻辑\r\n     * 只要使用subject.login(token) 就会调用该方法\r\n     * */\r\n    @Override\r\n    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {\r\n        //1、判断用户名\r\n        UsernamePasswordToken token=(UsernamePasswordToken) authenticationToken;\r\n        //如果传入的是用户名\r\n        User user = userService.queryById(token.getUsername());\r\n        if(user==null)\r\n            return null;\r\n        return new SimpleAuthenticationInfo(user,user.getPassword(),\"\");\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/shrio/UserRealm.java b/fleaMarket/src/main/java/com/example/fleamarket/shrio/UserRealm.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/shrio/UserRealm.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/shrio/UserRealm.java	
+@@ -1,6 +1,6 @@
+ package com.example.fleamarket.shrio;
+ 
+-import com.example.fleamarket.empty.User;
++import com.example.fleamarket.entity.User;
+ import com.example.fleamarket.service.impl.UserService;
+ import org.apache.shiro.SecurityUtils;
+ import org.apache.shiro.authc.*;
+@@ -11,8 +11,6 @@
+ import org.apache.shiro.subject.Subject;
+ import org.springframework.beans.factory.annotation.Autowired;
+ 
+-import java.util.List;
+-
+ public class UserRealm extends AuthorizingRealm {
+     @Autowired
+     private UserService userService;
+Index: fleaMarket/src/main/java/com/example/fleamarket/dao/IReplyDao.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/dao/IReplyDao.java b/fleaMarket/src/main/java/com/example/fleamarket/dao/IReplyDao.java
+new file mode 100644
+--- /dev/null	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/dao/IReplyDao.java	
+@@ -0,0 +1,9 @@
++package com.example.fleamarket.dao;
++
++import com.baomidou.mybatisplus.core.mapper.BaseMapper;
++import com.example.fleamarket.entity.Reply;
++import org.springframework.stereotype.Repository;
++@Repository
++public interface IReplyDao extends BaseMapper<Reply> {
++
++}
+Index: fleaMarket/src/main/java/com/example/fleamarket/empty/Order.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/empty/Order.java b/fleaMarket/src/main/java/com/example/fleamarket/entity/Order.java
+rename from fleaMarket/src/main/java/com/example/fleamarket/empty/Order.java
+rename to fleaMarket/src/main/java/com/example/fleamarket/entity/Order.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/empty/Order.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/entity/Order.java	
+@@ -1,4 +1,4 @@
+-package com.example.fleamarket.empty;
++package com.example.fleamarket.entity;
+ 
+ 
+ import com.baomidou.mybatisplus.annotation.TableName;
+Index: fleaMarket/src/main/java/com/example/fleamarket/empty/Follow.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/empty/Follow.java b/fleaMarket/src/main/java/com/example/fleamarket/entity/Follow.java
+rename from fleaMarket/src/main/java/com/example/fleamarket/empty/Follow.java
+rename to fleaMarket/src/main/java/com/example/fleamarket/entity/Follow.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/empty/Follow.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/entity/Follow.java	
+@@ -1,4 +1,4 @@
+-package com.example.fleamarket.empty;
++package com.example.fleamarket.entity;
+ 
+ import com.baomidou.mybatisplus.annotation.TableName;
+ import io.swagger.annotations.ApiModel;
+Index: fleaMarket/src/main/java/com/example/fleamarket/empty/History.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/empty/History.java b/fleaMarket/src/main/java/com/example/fleamarket/entity/History.java
+rename from fleaMarket/src/main/java/com/example/fleamarket/empty/History.java
+rename to fleaMarket/src/main/java/com/example/fleamarket/entity/History.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/empty/History.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/entity/History.java	
+@@ -1,4 +1,4 @@
+-package com.example.fleamarket.empty;
++package com.example.fleamarket.entity;
+ 
+ 
+ import com.baomidou.mybatisplus.annotation.TableName;
+Index: fleaMarket/src/main/java/com/example/fleamarket/empty/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/empty/User.java b/fleaMarket/src/main/java/com/example/fleamarket/entity/User.java
+rename from fleaMarket/src/main/java/com/example/fleamarket/empty/User.java
+rename to fleaMarket/src/main/java/com/example/fleamarket/entity/User.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/empty/User.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/entity/User.java	
+@@ -1,4 +1,4 @@
+-package com.example.fleamarket.empty;
++package com.example.fleamarket.entity;
+ 
+ import com.baomidou.mybatisplus.annotation.TableId;
+ import com.baomidou.mybatisplus.annotation.TableName;
+Index: fleaMarket/src/main/java/com/example/fleamarket/empty/Comment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/empty/Comment.java b/fleaMarket/src/main/java/com/example/fleamarket/entity/Comment.java
+rename from fleaMarket/src/main/java/com/example/fleamarket/empty/Comment.java
+rename to fleaMarket/src/main/java/com/example/fleamarket/entity/Comment.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/empty/Comment.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/entity/Comment.java	
+@@ -1,4 +1,4 @@
+-package com.example.fleamarket.empty;
++package com.example.fleamarket.entity;
+ 
+ import com.baomidou.mybatisplus.annotation.TableName;
+ import io.swagger.annotations.ApiModel;
+Index: fleaMarket/src/main/java/com/example/fleamarket/empty/Collection.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/empty/Collection.java b/fleaMarket/src/main/java/com/example/fleamarket/entity/Collection.java
+rename from fleaMarket/src/main/java/com/example/fleamarket/empty/Collection.java
+rename to fleaMarket/src/main/java/com/example/fleamarket/entity/Collection.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/empty/Collection.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/entity/Collection.java	
+@@ -1,4 +1,4 @@
+-package com.example.fleamarket.empty;
++package com.example.fleamarket.entity;
+ 
+ import com.baomidou.mybatisplus.annotation.TableName;
+ import io.swagger.annotations.ApiModel;
+Index: fleaMarket/src/main/java/com/example/fleamarket/empty/Goods.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/empty/Goods.java b/fleaMarket/src/main/java/com/example/fleamarket/entity/Goods.java
+rename from fleaMarket/src/main/java/com/example/fleamarket/empty/Goods.java
+rename to fleaMarket/src/main/java/com/example/fleamarket/entity/Goods.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/empty/Goods.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/entity/Goods.java	
+@@ -1,4 +1,4 @@
+-package com.example.fleamarket.empty;
++package com.example.fleamarket.entity;
+ 
+ import com.baomidou.mybatisplus.annotation.TableName;
+ import io.swagger.annotations.ApiModel;
+Index: fleaMarket/src/main/java/com/example/fleamarket/empty/Audit.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/empty/Audit.java b/fleaMarket/src/main/java/com/example/fleamarket/entity/Audit.java
+rename from fleaMarket/src/main/java/com/example/fleamarket/empty/Audit.java
+rename to fleaMarket/src/main/java/com/example/fleamarket/entity/Audit.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/empty/Audit.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/entity/Audit.java	
+@@ -1,4 +1,4 @@
+-package com.example.fleamarket.empty;
++package com.example.fleamarket.entity;
+ 
+ import com.baomidou.mybatisplus.annotation.TableName;
+ import io.swagger.annotations.ApiModelProperty;
+Index: fleaMarket/src/main/java/com/example/fleamarket/empty/AbstractAuditingEntity.java
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/empty/AbstractAuditingEntity.java b/fleaMarket/src/main/java/com/example/fleamarket/entity/AbstractAuditingEntity.java
+rename from fleaMarket/src/main/java/com/example/fleamarket/empty/AbstractAuditingEntity.java
+rename to fleaMarket/src/main/java/com/example/fleamarket/entity/AbstractAuditingEntity.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/empty/AbstractAuditingEntity.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/entity/AbstractAuditingEntity.java	
+@@ -1,4 +1,4 @@
+-package com.example.fleamarket.empty;
++package com.example.fleamarket.entity;
+ 
+ import com.fasterxml.jackson.annotation.JsonIgnore;
+ import io.swagger.annotations.ApiModel;
+Index: fleaMarket/src/main/java/com/example/fleamarket/empty/Announcement.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/empty/Announcement.java b/fleaMarket/src/main/java/com/example/fleamarket/entity/Announcement.java
+rename from fleaMarket/src/main/java/com/example/fleamarket/empty/Announcement.java
+rename to fleaMarket/src/main/java/com/example/fleamarket/entity/Announcement.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/empty/Announcement.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/entity/Announcement.java	
+@@ -1,4 +1,4 @@
+-package com.example.fleamarket.empty;
++package com.example.fleamarket.entity;
+ 
+ import com.baomidou.mybatisplus.annotation.TableName;
+ import io.swagger.annotations.ApiModelProperty;
+Index: fleaMarket/src/main/java/com/example/fleamarket/empty/Category.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/fleaMarket/src/main/java/com/example/fleamarket/empty/Category.java b/fleaMarket/src/main/java/com/example/fleamarket/entity/Category.java
+rename from fleaMarket/src/main/java/com/example/fleamarket/empty/Category.java
+rename to fleaMarket/src/main/java/com/example/fleamarket/entity/Category.java
+--- a/fleaMarket/src/main/java/com/example/fleamarket/empty/Category.java	
++++ b/fleaMarket/src/main/java/com/example/fleamarket/entity/Category.java	
+@@ -1,4 +1,4 @@
+-package com.example.fleamarket.empty;
++package com.example.fleamarket.entity;
+ 
+ import com.baomidou.mybatisplus.annotation.TableName;
+ import io.swagger.annotations.ApiModel;
