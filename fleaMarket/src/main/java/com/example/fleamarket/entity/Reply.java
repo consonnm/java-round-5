@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @TableName("posts")
@@ -25,4 +24,13 @@ public class Reply{
     String pic;
     @ApiModelProperty("楼层")
     int floor;
+
+    public Reply(int id, int postId, int sellManId, String description,  int floor) {
+        Id = id;
+        this.postId = postId;
+        this.sellManId = sellManId;
+        this.description = description;
+        this.pic = null;
+        this.floor = floor;
+    }
 }
