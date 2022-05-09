@@ -34,4 +34,10 @@ public class PostController {
         return new ResultVo().setData(P);
 
     }
+
+    @ApiOperation("增加帖子接口")
+    @GetMapping("/insert")
+    public ResultVo insert(@ApiParam("商品id")int postId,@ApiParam("购买者id")int buyerId,@ApiParam("描述")String description) {
+        return new ResultVo().setData(iPostsService.insert(postId,buyerId,description));
+    }
 }
