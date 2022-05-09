@@ -7,13 +7,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@EqualsAndHashCode(callSuper = true)
 @TableName("posts")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("帖子")
-public class Reply extends AbstractAuditingEntity{
+public class Reply{
     @ApiModelProperty("主键id")
     int Id;
     @ApiModelProperty("对应帖子id")
