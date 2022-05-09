@@ -29,9 +29,8 @@ public class PostController {
         log.info("帖子内容查询接口");
         Posts P=iPostsService.queryById(postId);
         P.setReplyList(
-                iReplyService.list(
-                        new LambdaQueryWrapper<Reply>()
-                                .eq(Reply::getPostId, postId)));
+                iReplyService.queryForReplyList(postId)
+                );
         return new ResultVo().setData(P);
 
     }

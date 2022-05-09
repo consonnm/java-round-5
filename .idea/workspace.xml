@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab267ad9-d7f5-4fe8-b459-cae54d6e27ae" name="Changes" comment="增添了帖子功能3">
-      <change afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/controller/ReplyController.java" afterDir="false" />
+    <list default="true" id="ab267ad9-d7f5-4fe8-b459-cae54d6e27ae" name="Changes" comment="增添了帖子功能5">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/controller/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/entity/Reply.java" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/entity/Reply.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/IReplyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/IReplyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/impl/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/impl/PostService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/impl/ReplyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/impl/ReplyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +87,8 @@
       <workItem from="1651824722379" duration="68000" />
       <workItem from="1652019361604" duration="2184000" />
       <workItem from="1652073554899" duration="2041000" />
-      <workItem from="1652100191191" duration="5200000" />
+      <workItem from="1652100191191" duration="7997000" />
+      <workItem from="1652108319413" duration="2085000" />
     </task>
     <task id="LOCAL-00001" summary="删除idea文件后重新加载了项目">
       <created>1651668753462</created>
@@ -124,7 +125,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652100538710</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="增添了帖子功能5">
+      <created>1652106232815</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1652106232815</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,6 +154,7 @@
     <MESSAGE value="增添了帖子功能" />
     <MESSAGE value="增添了帖子功能2" />
     <MESSAGE value="增添了帖子功能3" />
-    <option name="LAST_COMMIT_MESSAGE" value="增添了帖子功能3" />
+    <MESSAGE value="增添了帖子功能5" />
+    <option name="LAST_COMMIT_MESSAGE" value="增添了帖子功能5" />
   </component>
 </project>

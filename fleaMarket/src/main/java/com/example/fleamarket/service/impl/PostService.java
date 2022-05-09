@@ -37,4 +37,6 @@ public class PostService extends ServiceImpl<IPostsDao, Posts> implements IPosts
         lwq.eq(Posts::getPostId,postId);
         return remove(lwq);
     }
+
+
 }
