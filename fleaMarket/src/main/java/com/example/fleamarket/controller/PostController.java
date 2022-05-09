@@ -1,6 +1,5 @@
 package com.example.fleamarket.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.example.fleamarket.entity.Order;
 import com.example.fleamarket.entity.Posts;
 import com.example.fleamarket.entity.Reply;
 import com.example.fleamarket.response.ResultVo;

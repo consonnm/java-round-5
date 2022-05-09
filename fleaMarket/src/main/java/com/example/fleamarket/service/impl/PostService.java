@@ -10,7 +10,9 @@ import com.example.fleamarket.entity.Order;
 import com.example.fleamarket.entity.Posts;
 
 import com.example.fleamarket.service.IPostsService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PostService extends ServiceImpl<IPostsDao, Posts> implements IPostsService {
     @Override
     public Posts queryById(int postId) {
