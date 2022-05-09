@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping(value = "/post")
@@ -23,7 +25,7 @@ public class PostController {
 
     @ApiOperation("帖子内容查询接口")
     @GetMapping("/getPosts")
-    public ResultVo buy(@ApiParam("帖子id")int postId) {
+    public ResultVo postContent(@ApiParam("帖子id")int postId) {
         log.info("帖子内容查询接口");
         Posts P=iPostsService.queryById(postId);
         P.setReplyList(
@@ -38,5 +40,18 @@ public class PostController {
     @GetMapping("/insert")
     public ResultVo insert(@ApiParam("商品id")int postId,@ApiParam("购买者id")int buyerId,@ApiParam("描述")String description) {
         return new ResultVo().setData(iPostsService.insert(postId,buyerId,description));
+    }
+
+    @ApiOperation("用户帖子查询接口")
+    @GetMapping("/getUserPost")
+    public ResultVo query (@ApiParam("帖子id")int buyerId) {
+        log.info("帖子内容查询接口");
+        List posts;
+
+                posts=iPostsService.list(
+                        new LambdaQueryWrapper<Posts>()
+                                .eq(Posts::getBuyerId, buyerId));
+        return new ResultVo().setData(posts);
+
     }
 }
