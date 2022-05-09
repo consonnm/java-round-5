@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab267ad9-d7f5-4fe8-b459-cae54d6e27ae" name="Changes" comment="增添了帖子功能2">
-      <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/controller/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/IPostsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/IPostsService.java" afterDir="false" />
+    <list default="true" id="ab267ad9-d7f5-4fe8-b459-cae54d6e27ae" name="Changes" comment="增添了帖子功能3">
+      <change afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/dao/IReplyDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +40,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -69,7 +73,8 @@
       <workItem from="1651748598205" duration="2321000" />
       <workItem from="1651824722379" duration="68000" />
       <workItem from="1652019361604" duration="2184000" />
-      <workItem from="1652073554899" duration="1789000" />
+      <workItem from="1652073554899" duration="2041000" />
+      <workItem from="1652100191191" duration="321000" />
     </task>
     <task id="LOCAL-00001" summary="删除idea文件后重新加载了项目">
       <created>1651668753462</created>
@@ -92,7 +97,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652075037361</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="增添了帖子功能3">
+      <created>1652075485409</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1652075485409</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -113,6 +125,7 @@
     <MESSAGE value="删除idea文件后重新加载了项目" />
     <MESSAGE value="增添了帖子功能" />
     <MESSAGE value="增添了帖子功能2" />
-    <option name="LAST_COMMIT_MESSAGE" value="增添了帖子功能2" />
+    <MESSAGE value="增添了帖子功能3" />
+    <option name="LAST_COMMIT_MESSAGE" value="增添了帖子功能3" />
   </component>
 </project>
