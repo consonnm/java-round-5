@@ -23,7 +23,6 @@ public class ReplyService extends ServiceImpl<IReplyDao, Reply> implements IRepl
     @Override
     public boolean insertWithoutPic(int Id, int floor, int postId, int sellManId, String description) {
         Reply reply=new Reply(Id,postId,sellManId,description,floor);
-
         return save(reply);
     }
 

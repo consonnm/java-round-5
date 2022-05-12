@@ -23,11 +23,13 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         //给资源进行授权
         SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
-      //  info.addStringPermission("user:add");
+        //info.addStringPermission("user:add");
         //到数据库查询当前用户的授权的字符串
         Subject subject= SecurityUtils.getSubject();
         User user =(User) subject.getPrincipal();
-        info.addStringPermission(user.getRole());
+        info.addRole(user.getRole());
+        System.out.println("执行认证");
+        System.out.println(user.getRole());
         return info;
     }
     /**

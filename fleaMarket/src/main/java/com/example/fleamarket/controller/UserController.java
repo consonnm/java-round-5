@@ -49,7 +49,10 @@ public class UserController {
         }
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try {
+            System.out.println("认证状态："+subject.isAuthenticated());
             subject.login(token);
+            System.out.println("认证状态："+subject.isAuthenticated());
+            System.out.println("user:"+subject.hasRole("user"));
         } catch (UnknownAccountException e) {
             e.printStackTrace();
             return new ResultVo().setMessage("用户名不存在");
@@ -86,7 +89,16 @@ public class UserController {
         subject.logout();
         return new ResultVo().setMessage("退出成功");
     }
-
+    @ApiOperation("用户信息查询接口")
+    @GetMapping("/select")
+    public ResultVo select(@ApiParam("用户名") String username) {
+        log.info("用户信息查询");
+        Subject subject = SecurityUtils.getSubject();
+        User us = iUserService.queryById(username);
+        Map<String, Object> map = new HashMap<>();
+        map.put("user", us);
+        return new ResultVo().setCode(200).setMessage("登录成功").setData(map);
+    }
     @ApiOperation("用户基础信息修改接口")
     @GetMapping("/baseMessageUpdate")
     public ResultVo baseUpdate(@ApiParam("昵称")String nickname, @ApiParam("电话")String phone, @ApiParam("年龄")String age, @ApiParam("qq")String qq) {
