@@ -5,7 +5,7 @@ import com.example.fleamarket.entity.Order;
 
 public interface IOrderService extends IService<Order> {
     Boolean remove(int orderId);
-    Boolean baseUpdate(String buyerName,String phoneNumber);
-    Boolean statusUpdate();
+    Boolean baseUpdate(String buyerName, String phoneNumber,int orderId);
+    Boolean statusUpdate(int orderId);
     int insert(int goodId,int solderId,int buyerId,String time,String buyerName,String phoneNumber);
 }

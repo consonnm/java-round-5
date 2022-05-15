@@ -19,16 +19,16 @@ import java.util.UUID;
 
 @Component
 public class AliyunOSSUtil {
-    @Value("${spring.cloud.alicloud.oss.endpoint}")
-    private static String  endpoint;
-    @Value("${spring.cloud.alicloud.access-key}")
-    private static String  keyId;
-    @Value("${spring.cloud.alicloud.secret-key}")
-    private static String  keySecret;
-    @Value("${spring.cloud.alicloud.oos.bucketName}")
-    private static String  bucketName;
-    @Value("${spring.cloud.alicloud.oos.filehost}")
-    private static String  filehost;
+    //@Value("${spring.cloud.alicloud.oss.endpoint}")
+    private static String  endpoint="oss-cn-beijing.aliyuncs.com";
+    //@Value("${spring.cloud.alicloud.access-key}")
+    private static String  keyId="LTAI5t6WAjybmXMxC9L5a8ov";
+    //@Value("${spring.cloud.alicloud.secret-key}")
+    private static String  keySecret="AKYs2rqmQSGuCe4pHOMXtBDHJ9cClM";
+    //@Value("${spring.cloud.alicloud.oos.bucketName}")
+    private static String  bucketName="flea--market";
+    //@Value("${spring.cloud.alicloud.oos.filehost}")
+    private static String  filehost="fleaMarket";
 
 
     public static String upload(MultipartFile file){

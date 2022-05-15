@@ -24,7 +24,6 @@ public class Reply{
     String pic;
     @ApiModelProperty("楼层")
     int floor;
-
     public Reply(int id, int postId, int sellManId, String description,  int floor) {
         Id = id;
         this.postId = postId;

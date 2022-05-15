@@ -25,7 +25,7 @@ public class GoodReportService extends ServiceImpl<IGoodReportDao, GoodReport> i
     }
     @Override
     public Boolean update(String status, int reportId){
-        GoodReport goodReport = new GoodReport();
+        GoodReport goodReport = baseMapper.selectById(reportId);
         goodReport.setReportId(reportId);
         goodReport.setStatus(status);
         return saveOrUpdate(goodReport);

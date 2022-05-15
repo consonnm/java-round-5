@@ -37,7 +37,7 @@ public class UserService extends ServiceImpl<IUserDao, User> implements IUserSer
 	}
 	@Override
 	public Boolean updateUer(int userId,String nickname,String phone,String age,String qq){
-		User user = new User();
+		User user = baseMapper.selectById(userId);
 		user.setUserId(userId);
 		user.setAge(age);
 		user.setNickname(nickname);
@@ -49,7 +49,7 @@ public class UserService extends ServiceImpl<IUserDao, User> implements IUserSer
 	@Override
 	public Boolean updatePhoto(MultipartFile file,int userId) {
 		String url = AliyunOSSUtil.upload(file);
-		User user = new User();
+		User user = baseMapper.selectById(userId);
 		user.setPhone(url);
 		user.setUserId(userId);
 		return saveOrUpdate(user);

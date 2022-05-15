@@ -26,7 +26,7 @@ public class GoodsService extends ServiceImpl<IGoodsDao, Goods> implements IGood
 
     @Override
     public Boolean update(String goodName, String summary, String detail,double price,String goodSort,int goodId) {
-        Goods goods = new Goods();
+        Goods goods = baseMapper.selectById(goodId);
         goods.setGoodId(goodId);
         goods.setGoodName(goodName);
         goods.setDetail(summary);
@@ -38,14 +38,15 @@ public class GoodsService extends ServiceImpl<IGoodsDao, Goods> implements IGood
     @Override
     public Boolean updatePhoto(MultipartFile file,int goodId) {
         String url = AliyunOSSUtil.upload(file);
-        Goods goods = new Goods();
+        Goods goods = baseMapper.selectById(goodId);
         goods.setImage(url);
         goods.setGoodId(goodId);
+        goods.setUserId(goods.getUserId());
         return saveOrUpdate(goods);
     }
     @Override
     public Boolean approved(String approved,int goodId) {
-        Goods goods = new Goods();
+        Goods goods = baseMapper.selectById(goodId);
         goods.setApproved(approved);
         goods.setGoodId(goodId);
         return saveOrUpdate(goods);

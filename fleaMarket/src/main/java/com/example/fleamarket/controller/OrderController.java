@@ -47,16 +47,16 @@ public class OrderController {
 
     @ApiOperation("用户修改订单接口")
     @GetMapping("/baseUpdate")
-    public ResultVo baseUpdate(@ApiParam("购买者姓名")String buyerName, @ApiParam("电话")String phoneNumber) {
+    public ResultVo baseUpdate(@ApiParam("购买者姓名")String buyerName, @ApiParam("电话")String phoneNumber,@ApiParam("订单id")int orderId) {
         log.info("用户修改订单接口");
-        return new ResultVo().setData(iOrderService.baseUpdate(buyerName, phoneNumber));
+        return new ResultVo().setData(iOrderService.baseUpdate(buyerName, phoneNumber,orderId));
     }
 
     @ApiOperation("用户收货接口")
     @GetMapping("/update")
-    public ResultVo statusUpdate() {
+    public ResultVo statusUpdate(@ApiParam("订单id")int orderId) {
         log.info("用户收货接口");
-        return new ResultVo().setData(iOrderService.statusUpdate());
+        return new ResultVo().setData(iOrderService.statusUpdate(orderId));
     }
     @ApiOperation("增加商品接口")
     @GetMapping("/insert")

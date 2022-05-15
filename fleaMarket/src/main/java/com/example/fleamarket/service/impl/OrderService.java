@@ -19,15 +19,15 @@ public class OrderService extends ServiceImpl<IOrderDao, Order> implements IOrde
     }
 
     @Override
-    public Boolean statusUpdate() {
-       Order order = new Order();
+    public Boolean statusUpdate(int orderId) {
+       Order order = baseMapper.selectById(orderId);
        order.setOrderStatus("已收货");
        return saveOrUpdate(order);
     }
 
     @Override
-    public Boolean baseUpdate(String buyerName, String phoneNumber) {
-        Order order = new Order();
+    public Boolean baseUpdate(String buyerName, String phoneNumber,int orderId) {
+        Order order = baseMapper.selectById(orderId);
         order.setBuyerName(buyerName);
         order.setPhoneNumber(phoneNumber);
         return saveOrUpdate(order);

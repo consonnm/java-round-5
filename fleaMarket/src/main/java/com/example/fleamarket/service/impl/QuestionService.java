@@ -27,8 +27,7 @@ public class QuestionService extends ServiceImpl<IQuestionDao, Question> impleme
         return  baseMapper.selectPage(page,userLambdaQueryWrapper);
     }
     public Boolean update(int questionId,String question,String answer){
-        Question question1 = new Question();
-        question1.setQuestionId(questionId);
+        Question question1 = baseMapper.selectById(questionId);
         question1.setQuestion(question);
         question1.setAnswer(answer);
         return saveOrUpdate(question1);
