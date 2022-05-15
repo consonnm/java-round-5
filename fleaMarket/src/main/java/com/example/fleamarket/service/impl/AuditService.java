@@ -12,10 +12,13 @@ import com.example.fleamarket.entity.Category;
 import com.example.fleamarket.service.IAuditService;
 import com.example.fleamarket.service.ICategoryService;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AuditService extends ServiceImpl<IAuditDao, Audit> implements IAuditService {
-    public Boolean insert(int goodId,int adminId){
+    public Boolean insert(Boolean status,int goodId,int adminId){
         Audit audit = new Audit();
+        audit.setStatus(status);
         audit.setGoodId(goodId);
         audit.setAdminId(adminId);
         return save(audit);

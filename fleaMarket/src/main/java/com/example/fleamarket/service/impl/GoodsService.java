@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.fleamarket.dao.IGoodsDao;
 import com.example.fleamarket.entity.Comment;
+import com.example.fleamarket.entity.GoodReport;
 import com.example.fleamarket.entity.Goods;
 import com.example.fleamarket.service.IGoodService;
 import com.example.fleamarket.utils.AliyunOSSUtil;
@@ -42,11 +43,20 @@ public class GoodsService extends ServiceImpl<IGoodsDao, Goods> implements IGood
         goods.setGoodId(goodId);
         return saveOrUpdate(goods);
     }
+    @Override
+    public Boolean approved(String approved,int goodId) {
+        Goods goods = new Goods();
+        goods.setApproved(approved);
+        goods.setGoodId(goodId);
+        return saveOrUpdate(goods);
+    }
+    @Override
     public Boolean remove(int goodId) {
         LambdaQueryWrapper<Goods> lwq = Wrappers.lambdaQuery();
         lwq.eq(Goods::getGoodId,goodId);
         return remove(lwq);
     }
+    @Override
     public int insert(String goodName,String summary,String detail,double price,String goodSort,int userId){
         Goods goods = new Goods();
         goods.setGoodName(goodName);

@@ -13,11 +13,13 @@ public interface IUserService extends IService<User> {
 
     Boolean insertUser(String userName, String passWord);
 
-    Boolean updateUer(String nickname,String phone,String age,String qq);
+    Boolean updateUer(int userId,String nickname,String phone,String age,String qq);
 
     Boolean updatePhoto(MultipartFile file,int userId);
 
     Boolean unqualifiedGoodsUpdate(String userName);
 
     IPage<User> findByPage(Page<User> page, LambdaQueryWrapper<User> userLambdaQueryWrapper);
+
+    Boolean scoreUpdate(String userName,double score);
 }

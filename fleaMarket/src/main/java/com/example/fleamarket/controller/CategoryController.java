@@ -1,13 +1,9 @@
 package com.example.fleamarket.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.fleamarket.entity.Category;
-import com.example.fleamarket.entity.Collection;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.ICategoryService;
-import com.example.fleamarket.service.ICollectionService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;

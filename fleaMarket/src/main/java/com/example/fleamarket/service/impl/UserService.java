@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.fleamarket.dao.IUserDao;
-
-import com.example.fleamarket.entity.Category;
 import com.example.fleamarket.entity.User;
 import com.example.fleamarket.service.IUserService;
 import com.example.fleamarket.utils.AliyunOSSUtil;
@@ -33,11 +31,14 @@ public class UserService extends ServiceImpl<IUserDao, User> implements IUserSer
 		user.setUsername(username);
 		user.setSalt(salt);
 		user.setRole("user::user");
+		user.setScore(5);
+		user.setScoreNumber(0);
 		return save(user);
 	}
 	@Override
-	public Boolean updateUer(String nickname,String phone,String age,String qq){
+	public Boolean updateUer(int userId,String nickname,String phone,String age,String qq){
 		User user = new User();
+		user.setUserId(userId);
 		user.setAge(age);
 		user.setNickname(nickname);
 		user.setPhone(phone);
@@ -62,6 +63,15 @@ public class UserService extends ServiceImpl<IUserDao, User> implements IUserSer
 	@Override
 	public IPage<User> findByPage(Page<User> page, LambdaQueryWrapper<User> userLambdaQueryWrapper){
 		return  baseMapper.selectPage(page,userLambdaQueryWrapper);
+	}
+	@Override
+	public Boolean scoreUpdate(String userName,double score){
+		User user = queryById(userName);
+		double score1= user.getScore();
+		int scoreNumber=user.getScoreNumber();
+		user.setScore((score1*scoreNumber+score)/(scoreNumber+1));
+		user.setScoreNumber(scoreNumber+1);
+		return saveOrUpdate(user);
 	}
 
 }

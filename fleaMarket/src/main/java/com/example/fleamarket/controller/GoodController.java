@@ -46,9 +46,19 @@ public class GoodController {
     @GetMapping("/getGoodBySort")
     public ResultVo sort(@ApiParam("商品类别") String goodSort,@ApiParam("当前页")int current,@ApiParam("大小")int size) {
         log.info("根据类别查询商品");
-        Page<Goods> page = new Page<>(current , size );
+        Page<Goods> page = new Page<>(current,size);
         LambdaQueryWrapper<Goods> userLambdaQueryWrapper = Wrappers.lambdaQuery();
         userLambdaQueryWrapper.eq(Goods::getGoodSort, goodSort);
+        return new ResultVo().setData(iGoodService.findByPage(page,userLambdaQueryWrapper));
+    }
+    @RequiresRoles("user::user")
+    @ApiOperation("根据类别及关键字查询商品")
+    @GetMapping("/getGoodBySortByKey")
+    public ResultVo sortByKey(@ApiParam("商品类别") String goodSort,@ApiParam("商品关键字")String goodName,@ApiParam("当前页")int current,@ApiParam("大小")int size) {
+        log.info("根据类别查询商品");
+        Page<Goods> page = new Page<>(current,size);
+        LambdaQueryWrapper<Goods> userLambdaQueryWrapper = Wrappers.lambdaQuery();
+        userLambdaQueryWrapper.eq(Goods::getGoodSort, goodSort).like(Goods::getGoodName,goodName);
         return new ResultVo().setData(iGoodService.findByPage(page,userLambdaQueryWrapper));
     }
     @RequiresRoles("user::user")
@@ -75,6 +85,13 @@ public class GoodController {
         userLambdaQueryWrapper.eq(Goods::getApproved, "未审核");
         return new ResultVo().setData(iGoodService.findByPage(page,userLambdaQueryWrapper));
     }
+    @RequiresRoles("admin")
+    @ApiOperation("商品审核状态修改接口")
+    @GetMapping("/approved")
+    public ResultVo approved(String approved,int goodId) {
+        log.info("商品审核状态修改接口");
+        return new ResultVo().setData(iGoodService.approved(approved,goodId));
+    }
     @RequiresRoles("user::user")
     @ApiOperation("商品图片修改接口")
     @GetMapping("/photoUpdate")
@@ -89,7 +106,6 @@ public class GoodController {
         return new ResultVo().setData(iGoodService.insert(goodName,summary,detail,price,goodSort,userId));
 
     }
-    @RequiresRoles("user::user")
     @ApiOperation("删除商品接口")
     @GetMapping("/remove")
     public ResultVo remove(@ApiParam("商品id")int goodId) {

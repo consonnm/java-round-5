@@ -4,14 +4,12 @@ package com.example.fleamarket.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.fleamarket.entity.Collection;
 import com.example.fleamarket.entity.User;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IUserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.json.JSON;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -101,9 +99,9 @@ public class UserController {
     }
     @ApiOperation("用户基础信息修改接口")
     @GetMapping("/baseMessageUpdate")
-    public ResultVo baseUpdate(@ApiParam("昵称")String nickname, @ApiParam("电话")String phone, @ApiParam("年龄")String age, @ApiParam("qq")String qq) {
+    public ResultVo baseUpdate(@ApiParam("用户id")int userId,@ApiParam("昵称")String nickname, @ApiParam("电话")String phone, @ApiParam("年龄")String age, @ApiParam("qq")String qq) {
         log.info("用户基础信息修改接口");
-        return new ResultVo().setData(iUserService.updateUer(nickname, phone, age, qq));
+        return new ResultVo().setData(iUserService.updateUer(userId,nickname, phone, age, qq));
     }
 
     @ApiOperation("用户图片修改接口")
@@ -111,6 +109,7 @@ public class UserController {
     public ResultVo photoUpdate(@ApiParam("照片")MultipartFile file,@ApiParam("用户id") int userId) {
         return new ResultVo().setData(iUserService.updatePhoto(file, userId));
     }
+    @RequiresRoles("admin")
     @ApiOperation("修改审核未通过用户不合格商品数接口")
     @GetMapping("/unqualifiedGoodsUpdate")
     public ResultVo photoUpdate(@ApiParam("用户名")String userName) {
@@ -124,5 +123,11 @@ public class UserController {
         LambdaQueryWrapper<User> userLambdaQueryWrapper = Wrappers.lambdaQuery();
         userLambdaQueryWrapper.ge(User::getUnqualifiedGoods,10);
         return new ResultVo().setData(iUserService.findByPage(page,userLambdaQueryWrapper));
+    }
+    @RequiresRoles("admin")
+    @ApiOperation("修改审核未通过用户不合格商品数接口")
+    @GetMapping("/scoreUpdate")
+    public ResultVo scoreUpdate(@ApiParam("用户名")String userName,double score) {
+        return new ResultVo().setData(iUserService.scoreUpdate(userName,score));
     }
 }

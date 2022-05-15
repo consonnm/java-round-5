@@ -12,11 +12,15 @@ import org.springframework.web.multipart.MultipartFile;
 public interface IGoodService extends IService<Goods> {
     Goods queryById(int goodId);
 
-    Boolean update(String goodName,String summary,String detail,double price,String goodSort,int goodId);
+    Boolean update(String goodName, String summary, String detail, double price, String goodSort, int goodId);
 
-    Boolean updatePhoto(MultipartFile file,int goodId);
+    Boolean updatePhoto(MultipartFile file, int goodId);
+
     Boolean remove(int goodId);
-    int insert(String goodName,String summary,String detail,double price,String goodSort,int userId);
+
+    int insert(String goodName, String summary, String detail, double price, String goodSort, int userId);
+
     IPage<Goods> findByPage(Page<Goods> page, LambdaQueryWrapper<Goods> userLambdaQueryWrapper);
+    Boolean approved(String approved,int goodId);
 }
 

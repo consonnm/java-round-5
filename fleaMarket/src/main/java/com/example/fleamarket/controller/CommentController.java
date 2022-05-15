@@ -25,6 +25,7 @@ public class CommentController {
     public CommentController(ICommentService iCommentService) {
         this.iCommentService = iCommentService;
     }
+    @RequiresRoles("user::user")
     @ApiOperation("查询所有评论")
     @GetMapping("/getAllComment")
     public ResultVo all(@ApiParam("用户id")int userId, @ApiParam("当前页")int current, @ApiParam("大小")int size){
@@ -34,12 +35,14 @@ public class CommentController {
         userLambdaQueryWrapper.eq(Comment::getBeCommentedUserId,userId);
         return new ResultVo().setData(iCommentService.findByPage(page,userLambdaQueryWrapper));
     }
+    @RequiresRoles("user::user")
     @ApiOperation("增加评论")
     @GetMapping("/insert")
     public ResultVo insert(@ApiParam("评论者id")int commentUserId,@ApiParam("被评论者id")int beCommentUserId,@ApiParam("评论内容")String context){
         log.info("增加评论");
         return new ResultVo().setData(iCommentService.insert(commentUserId,beCommentUserId,context));
     }
+    @RequiresRoles("usr::user")
     @ApiOperation("删除评论")
     @GetMapping("/remove")
     public ResultVo remove(@ApiParam("评论id")int commentId){

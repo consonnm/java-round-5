@@ -6,10 +6,16 @@ import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IAnnouncementService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
+@RestController
+@RequestMapping(value ="/announcement")
 public class AnnouncementController {
     @Autowired
     IAnnouncementService iAnnouncementService;

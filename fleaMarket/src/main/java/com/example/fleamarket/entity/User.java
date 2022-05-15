@@ -38,4 +38,8 @@ public class User{
 	String qq;
 	@ApiModelProperty("不合格商品数")
 	int unqualifiedGoods;
+	@ApiModelProperty("分数")
+	double score;
+	@ApiModelProperty("打分人数")
+	int scoreNumber;
 }
