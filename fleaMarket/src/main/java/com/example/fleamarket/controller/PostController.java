@@ -82,10 +82,11 @@ public class PostController {
 
     @ApiOperation("根据标签查询帖子接口")
     @GetMapping("/getPostsByCategory")
-    public ResultVo queryPostByCategory(@ApiParam("标签id") int categoryId) {
+    public ResultVo queryPostByCategory(@ApiParam("标签id") String categoryName) {
         log.info("帖子标签查询接口");
-
-               List<Posts>list= iCategoryService.findPostsByCategory(categoryId);
+               Category c= iCategoryService.getOne(new LambdaQueryWrapper<Category>()
+                       .eq(Category::getGoodSort, categoryName));
+               List<Posts>list= iCategoryService.findPostsByCategory(c.getCategoryId());
 
         return new ResultVo().setData(list);
 
