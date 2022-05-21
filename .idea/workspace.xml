@@ -4,13 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab267ad9-d7f5-4fe8-b459-cae54d6e27ae" name="Changes" comment="增添了帖子功能5">
+    <list default="true" id="ab267ad9-d7f5-4fe8-b459-cae54d6e27ae" name="Changes" comment="增添了帖子功能6">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/controller/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/IReplyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/IReplyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/dao/ICategoryDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/dao/ICategoryDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/dao/IPostsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/dao/IPostsDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/entity/Posts.java" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/entity/Posts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/ICategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/ICategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/IPostsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/IPostsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/impl/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/impl/CategoryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/impl/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/impl/PostService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/impl/ReplyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/java/com/example/fleamarket/service/impl/ReplyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fleaMarket/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/fleaMarket/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +92,8 @@
       <workItem from="1652073554899" duration="2041000" />
       <workItem from="1652100191191" duration="7997000" />
       <workItem from="1652108319413" duration="2085000" />
+      <workItem from="1653047002173" duration="3297000" />
+      <workItem from="1653132551540" duration="18025000" />
     </task>
     <task id="LOCAL-00001" summary="删除idea文件后重新加载了项目">
       <created>1651668753462</created>

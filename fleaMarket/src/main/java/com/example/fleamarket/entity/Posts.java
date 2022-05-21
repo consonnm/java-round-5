@@ -5,10 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,6 +21,10 @@ public class Posts{
     int buyerId;
     @ApiModelProperty("求物描述")
     String description;
+    @ApiModelProperty("话题分类")
+    @TableField(exist = false)
+    List<Category> categoryList;
+    @ApiModelProperty("回复列表")
     @TableField(exist = false)
     List<Reply>replyList;
 
