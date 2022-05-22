@@ -12,11 +12,12 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
+@CrossOrigin
 @Slf4j
 @RestController
 @RequestMapping(value ="/good")
@@ -110,5 +111,30 @@ public class GoodController {
     @GetMapping("/remove")
     public ResultVo remove(@ApiParam("商品id")int goodId) {
         return new ResultVo().setData(iGoodService.remove(goodId));
+    }
+
+    @RequiresRoles("user::user")
+    @ApiOperation("用户未出售商品查询接口")
+    @GetMapping("/unsoldGood")
+    public ResultVo unsoldGood(@ApiParam("用户id")int userId,@ApiParam("当前页")int current,@ApiParam("大小")int size) {
+        Page<Goods> page = new Page<>(current,size);
+        LambdaQueryWrapper<Goods> userLambdaQueryWrapper = Wrappers.lambdaQuery();
+        userLambdaQueryWrapper.eq(Goods::getUserId, userId).eq(Goods::getIsSold,false);
+        return new ResultVo().setData(iGoodService.findByPage(page,userLambdaQueryWrapper));
+    }
+    @RequiresRoles("user::user")
+    @ApiOperation("用户已出售商品查询接口")
+    @GetMapping("/isSoldGood")
+    public ResultVo isSoldGood(@ApiParam("用户id")int userId,@ApiParam("当前页")int current,@ApiParam("大小")int size) {
+        Page<Goods> page = new Page<>(current,size);
+        LambdaQueryWrapper<Goods> userLambdaQueryWrapper = Wrappers.lambdaQuery();
+        userLambdaQueryWrapper.eq(Goods::getUserId, userId).eq(Goods::getIsSold,true);
+        return new ResultVo().setData(iGoodService.findByPage(page,userLambdaQueryWrapper));
+    }
+    @RequiresRoles("user::user")
+    @ApiOperation("商品出售情况修改接口")
+    @GetMapping("/unSoldGood")
+    public ResultVo unSoldGood(int goodId) {
+        return new ResultVo().setData(iGoodService.isSoldUpdate(goodId));
     }
 }

@@ -11,11 +11,14 @@ import com.example.fleamarket.entity.GoodReport;
 import com.example.fleamarket.entity.Goods;
 import com.example.fleamarket.service.IGoodService;
 import com.example.fleamarket.utils.AliyunOSSUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class GoodsService extends ServiceImpl<IGoodsDao, Goods> implements IGoodService {
+    @Autowired
+    AliyunOSSUtil aliyunOSSUtil;
     @Override
     public Goods queryById(int goodId) {
         return getOne(new LambdaQueryWrapper<Goods>()
@@ -37,7 +40,7 @@ public class GoodsService extends ServiceImpl<IGoodsDao, Goods> implements IGood
     }
     @Override
     public Boolean updatePhoto(MultipartFile file,int goodId) {
-        String url = AliyunOSSUtil.upload(file);
+        String url = aliyunOSSUtil.upload(file);
         Goods goods = baseMapper.selectById(goodId);
         goods.setImage(url);
         goods.setGoodId(goodId);
@@ -73,6 +76,12 @@ public class GoodsService extends ServiceImpl<IGoodsDao, Goods> implements IGood
     @Override
     public IPage<Goods> findByPage(Page<Goods> page, LambdaQueryWrapper<Goods> userLambdaQueryWrapper){
         return  baseMapper.selectPage(page,userLambdaQueryWrapper);
+    }
+    @Override
+    public Boolean isSoldUpdate(int goodId) {
+        Goods goods = baseMapper.selectById(goodId);
+        goods.setIsSold(true);
+        return saveOrUpdate(goods);
     }
 
 }

@@ -10,12 +10,17 @@ import com.example.fleamarket.service.IUserService;
 import com.example.fleamarket.utils.AliyunOSSUtil;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Objects;
+
 @Service
 public class UserService extends ServiceImpl<IUserDao, User> implements IUserService {
-
+	@Autowired
+	AliyunOSSUtil aliyunOSSUtil;
 	@Override
 	public User queryById(String userName) {
 		return getOne(new LambdaQueryWrapper<User>()
@@ -36,6 +41,22 @@ public class UserService extends ServiceImpl<IUserDao, User> implements IUserSer
 		return save(user);
 	}
 	@Override
+	public String changeUser(int userId, String password1,String password2,String password3) {
+		User user = baseMapper.selectById(userId);
+		String password = new SimpleHash("md5", password1, user.getSalt(), 2).toString();
+		System.out.println(password);
+		System.out.println(user.getPassword());
+		if(!Objects.equals(password2, password3))
+				return "两次密码输入不一致";
+		else if(password.equals(user.getPassword())) {
+			Md5Hash MD5 = new Md5Hash(password2, user.getSalt(), 2);
+			user.setPassword(MD5.toHex());
+			saveOrUpdate(user);
+			return "修改成功";
+		}
+		return "原密码错误";
+	}
+	@Override
 	public Boolean updateUer(int userId,String nickname,String phone,String age,String qq){
 		User user = baseMapper.selectById(userId);
 		user.setUserId(userId);
@@ -48,9 +69,9 @@ public class UserService extends ServiceImpl<IUserDao, User> implements IUserSer
 
 	@Override
 	public Boolean updatePhoto(MultipartFile file,int userId) {
-		String url = AliyunOSSUtil.upload(file);
+		String url = aliyunOSSUtil.upload(file);
 		User user = baseMapper.selectById(userId);
-		user.setPhone(url);
+		user.setImage(url);
 		user.setUserId(userId);
 		return saveOrUpdate(user);
 	}

@@ -21,6 +21,9 @@ public interface IGoodService extends IService<Goods> {
     int insert(String goodName, String summary, String detail, double price, String goodSort, int userId);
 
     IPage<Goods> findByPage(Page<Goods> page, LambdaQueryWrapper<Goods> userLambdaQueryWrapper);
+
     Boolean approved(String approved,int goodId);
+
+    Boolean isSoldUpdate(int goodId);
 }
 

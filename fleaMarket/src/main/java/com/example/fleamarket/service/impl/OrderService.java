@@ -10,14 +10,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OrderService extends ServiceImpl<IOrderDao, Order> implements IOrderService {
-
-    @Override
-    public Boolean remove(int orderId) {
-        LambdaQueryWrapper<Order> lwq = Wrappers.lambdaQuery();
-        lwq.eq(Order::getOrderId,orderId);
-        return remove(lwq);
-    }
-
     @Override
     public Boolean statusUpdate(int orderId) {
        Order order = baseMapper.selectById(orderId);

@@ -9,10 +9,11 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+@CrossOrigin
 @Slf4j
 @RestController
 @RequestMapping(value = "/order")
@@ -42,7 +43,7 @@ public class OrderController {
     @GetMapping("/cancel")
     public ResultVo cancel(@ApiParam("订单id")int orderId) {
         log.info("用户取消订单接口");
-        return new ResultVo().setData(iOrderService.remove(orderId));
+        return new ResultVo().setData(iOrderService.statusUpdate(orderId));
     }
 
     @ApiOperation("用户修改订单接口")

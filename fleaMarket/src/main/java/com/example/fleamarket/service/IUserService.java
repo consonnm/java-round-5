@@ -22,4 +22,5 @@ public interface IUserService extends IService<User> {
     IPage<User> findByPage(Page<User> page, LambdaQueryWrapper<User> userLambdaQueryWrapper);
 
     Boolean scoreUpdate(String userName,double score);
+    String changeUser(int userId, String password1,String password2,String password3);
 }
