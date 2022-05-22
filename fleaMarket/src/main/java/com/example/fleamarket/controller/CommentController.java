@@ -3,7 +3,6 @@ package com.example.fleamarket.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.fleamarket.entity.Collection;
 import com.example.fleamarket.entity.Comment;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.ICommentService;

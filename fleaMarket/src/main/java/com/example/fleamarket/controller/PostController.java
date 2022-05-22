@@ -91,4 +91,14 @@ public class PostController {
         return new ResultVo().setData(list);
 
     }
+
+    @ApiOperation("删除帖子接口")
+    @GetMapping("/deletePosts")
+    public ResultVo deletePosts(@ApiParam("帖子id") int postId) {
+        log.info("删除帖子接口");
+
+        return new ResultVo().setData(iPostsService.remove(postId));
+
+    }
+
 }
