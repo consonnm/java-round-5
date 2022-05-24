@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value ="/goodsCollection")
-public class GoodsCollectionController {
+public class CollectionController {
     @Autowired
     IGoodsCollectionService iGoodsCollectionService;
     @RequiresRoles("usr::user")
