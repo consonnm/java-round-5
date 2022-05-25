@@ -7,9 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.fleamarket.dao.ICategoryDao;
 import com.example.fleamarket.entity.Category;
-import com.example.fleamarket.entity.Collection;
 import com.example.fleamarket.entity.Posts;
-import com.example.fleamarket.entity.Reply;
 import com.example.fleamarket.service.ICategoryService;
 import org.springframework.stereotype.Service;
 

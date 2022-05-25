@@ -2,7 +2,8 @@
 SQLyog Ultimate v10.00 Beta1
 MySQL - 8.0.27 : Database - market
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -50,11 +51,11 @@ CREATE TABLE `catgory` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-/*Table structure for table `collection` */
+/*Table structure for table `goodsCollection` */
 
-DROP TABLE IF EXISTS `collection`;
+DROP TABLE IF EXISTS `goodsCollection`;
 
-CREATE TABLE `collection` (
+CREATE TABLE `goodsCollection` (
   `good_id` int NOT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`good_id`,`user_id`),
@@ -125,7 +126,7 @@ CREATE TABLE `goods` (
   `time` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` int DEFAULT NULL,
   PRIMARY KEY (`good_id`),
-  CONSTRAINT `goods_ibfk_1` FOREIGN KEY (`good_id`) REFERENCES `collection` (`good_id`)
+  CONSTRAINT `goods_ibfk_1` FOREIGN KEY (`good_id`) REFERENCES `goodsCollection` (`good_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `history` */

@@ -11,16 +11,15 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value ="/goodsCollection")
-public class CollectionController {
+@RequestMapping(value ="/postsCollection")
+public class PostsCollectionController {
     @Autowired
-    IGoodsCollectionService iGoodsCollectionService;
+    IGoodsCollectionService iPostsCollectionService;
     @RequiresRoles("usr::user")
     @ApiOperation("查询所有收藏")
     @GetMapping("/getAllFollow")
@@ -28,18 +27,18 @@ public class CollectionController {
         Page<GoodsCollection> page = new Page<>(current , size );
         LambdaQueryWrapper<GoodsCollection> userLambdaQueryWrapper = Wrappers.lambdaQuery();
         userLambdaQueryWrapper.eq(GoodsCollection::getUserId,userId);
-        return new ResultVo().setData(iGoodsCollectionService.findByPage(page,userLambdaQueryWrapper));
+        return new ResultVo().setData(iPostsCollectionService.findByPage(page,userLambdaQueryWrapper));
     }
     @RequiresRoles("usr::user")
     @ApiOperation("增加收藏")
     @GetMapping("/insert")
-    public ResultVo insert(@ApiParam("用户id")int userId,@ApiParam("商品id")int goodId){
-        return new ResultVo().setData(iGoodsCollectionService.insert(userId,goodId));
+    public ResultVo insert(@ApiParam("用户id")int userId,@ApiParam("帖子id")int goodId){
+        return new ResultVo().setData(iPostsCollectionService.insert(userId,goodId));
     }
     @RequiresRoles("usr::user")
     @ApiOperation("删除收藏")
     @GetMapping("/remove")
-    public ResultVo remove(@ApiParam("用户id")int userId,@ApiParam("商品id")int goodId){
-        return new ResultVo().setData(iGoodsCollectionService.remove(userId,goodId));
+    public ResultVo remove(@ApiParam("用户id")int userId,@ApiParam("帖子id")int goodId){
+        return new ResultVo().setData(iPostsCollectionService.remove(userId,goodId));
     }
 }
