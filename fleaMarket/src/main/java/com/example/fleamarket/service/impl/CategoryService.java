@@ -17,9 +17,10 @@ import java.util.List;
 
 @Service
 public class CategoryService extends ServiceImpl<ICategoryDao, Category> implements ICategoryService {
-    public Boolean insert(String name){
+    public Boolean insert(String goodSort,String describe){
         Category category = new Category();
-        category.setGoodSort(name);
+        category.setGoodSort(goodSort);
+        category.setGoodDescribe(describe);
         return save(category);
     }
     public Boolean remove(int id) {

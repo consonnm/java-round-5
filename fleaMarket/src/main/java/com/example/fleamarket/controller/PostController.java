@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-@CrossOrigin
+
 @Slf4j
 @RestController
 @RequestMapping(value = "/post")

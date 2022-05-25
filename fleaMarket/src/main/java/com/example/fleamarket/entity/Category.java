@@ -22,6 +22,8 @@ public class Category{
 	int CategoryId;
 	@ApiModelProperty("名称")
 	String goodSort;
+	@ApiModelProperty("描述")
+	String goodDescribe;
 	/*@ApiModelProperty("分类级别，1是一级分类，2是二级分类")
 	Integer rank;
 	@ApiModelProperty("父分类的id，若无父分类，则为0")

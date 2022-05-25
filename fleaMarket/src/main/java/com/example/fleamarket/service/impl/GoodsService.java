@@ -23,7 +23,7 @@ public class GoodsService extends ServiceImpl<IGoodsDao, Goods> implements IGood
     public Goods queryById(int goodId) {
         return getOne(new LambdaQueryWrapper<Goods>()
                 .eq(Goods::getGoodId,goodId)
-                .eq(Goods::getApproved, true)
+                .eq(Goods::getApproved, "已审核")
         );
     }
 

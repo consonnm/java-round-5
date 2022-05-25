@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-@CrossOrigin
+
 @Slf4j
 @RestController
 @RequestMapping(value ="/good")
@@ -133,8 +133,8 @@ public class GoodController {
     }
     @RequiresRoles("user::user")
     @ApiOperation("商品出售情况修改接口")
-    @GetMapping("/unSoldGood")
-    public ResultVo unSoldGood(int goodId) {
+    @GetMapping("/statusUpdate")
+    public ResultVo statusUpdate(int goodId) {
         return new ResultVo().setData(iGoodService.isSoldUpdate(goodId));
     }
 }

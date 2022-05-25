@@ -21,16 +21,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
-@CrossOrigin
+
 @Slf4j
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
     @Autowired
     IUserService iUserService;
-
 
     @ApiOperation("登录接口")
     @PostMapping("/login")
