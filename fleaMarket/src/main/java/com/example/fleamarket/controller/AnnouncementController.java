@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.fleamarket.entity.Announcement;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IAnnouncementService;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
@@ -29,8 +30,8 @@ public class AnnouncementController {
     @RequiresRoles("admin")
     @ApiOperation("增加公告")
     @GetMapping("/insert")
-    public ResultVo insert(@ApiParam("公告内容")String context){
-        return new ResultVo().setData(iAnnouncementService.insert(context));
+    public ResultVo insert(@ApiParam("公告内容")String context,@ApiParam("公告主题")String topic,@ApiParam("公告时间") String time){
+        return new ResultVo().setData(iAnnouncementService.insert(context,topic,time));
     }
     @RequiresRoles("admin")
     @ApiOperation("删除公告")

@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.fleamarket.entity.Announcement;
 
 public interface IAnnouncementService extends IService<Announcement> {
-    Boolean insert(String context);
+    Boolean insert(String context,String topic,String time);
     Boolean remove(int announcementId);
     IPage<Announcement> findByPage(Page<Announcement> page, LambdaQueryWrapper<Announcement> userLambdaQueryWrapper);
 }

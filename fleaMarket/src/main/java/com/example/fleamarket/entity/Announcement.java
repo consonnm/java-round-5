@@ -18,7 +18,11 @@ public class Announcement{
     @TableId(type = IdType.AUTO)
     @ApiModelProperty("公告id")
     int announcementId;
+    @ApiModelProperty("公告主题")
+    String topic;
     @ApiModelProperty("公告内容")
     String context;
+    @ApiModelProperty("公告时间")
+    String time;
 
 }
