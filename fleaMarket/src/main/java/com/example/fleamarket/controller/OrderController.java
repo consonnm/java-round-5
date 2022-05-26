@@ -62,6 +62,7 @@ public class OrderController {
     @ApiOperation("增加商品接口")
     @GetMapping("/insert")
     public ResultVo insert(@ApiParam("商品id")int goodId,@ApiParam("出售人id")int solderId,@ApiParam("购买者id")int buyerId,@ApiParam("时间")String time,@ApiParam("购买者姓名")String buyerName,@ApiParam("电话号码")String phoneNumber) {
+        log.info("增加商品接口");
         return new ResultVo().setData(iOrderService.insert(goodId,solderId,buyerId,time,buyerName,phoneNumber));
     }
 

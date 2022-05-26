@@ -24,7 +24,7 @@ public class ReplyController {
     @ApiOperation("无图片添加回复接口")
     @GetMapping("/insertReplyWithoutPic")
     public ResultVo insert1(@ApiParam("主键id")int Id,@ApiParam("帖子id")int postId,@ApiParam("楼层")int floor,@ApiParam("卖家id")int sellManId,@ApiParam("描述")String description) {
-        log.info("添加回复接口");
+        log.info("无图片添加回复接口");
         iReplyService.insertWithoutPic(Id,floor,postId,sellManId,description);
         return new ResultVo().setCode(200);
 
@@ -33,7 +33,7 @@ public class ReplyController {
     @GetMapping("/insertReplyWithPic")
     public ResultVo insert2(@ApiParam("主键id")int Id, @ApiParam("帖子id")int postId, @ApiParam("楼层")int floor, @ApiParam("卖家id")int sellManId, @ApiParam("描述")String description,
                             @ApiParam("照片") MultipartFile file) {
-        log.info("添加回复接口");
+        log.info("有图片添加回复接口");
         String pic = aliyunOSSUtil.upload(file);
         iReplyService.insertWithPic(Id,floor,postId,sellManId,pic,description);
         return new ResultVo().setCode(200);
@@ -43,7 +43,7 @@ public class ReplyController {
     @ApiOperation("删除回复接口")
     @GetMapping("/deleteReply")
     public ResultVo delete(@ApiParam("主键id")int Id) {
-        log.info("添加回复接口");
+        log.info("删除回复接口");
         iReplyService.remove(Id);
         return new ResultVo().setCode(200);
 

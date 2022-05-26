@@ -63,6 +63,7 @@ public class UserController {
     @ApiOperation("登陆状态查询接口")
     @PostMapping("/status")
     public ResultVo status() {
+        log.info("登陆状态查询接口");
         Subject subject = SecurityUtils.getSubject();
         if(subject.isAuthenticated()){
             User user =(User) subject.getPrincipal();
@@ -118,18 +119,21 @@ public class UserController {
     @ApiOperation("用户图片修改接口")
     @GetMapping("/photoUpdate")
     public ResultVo photoUpdate(@ApiParam("照片")MultipartFile file,@ApiParam("用户id") int userId) {
+        log.info("用户图片修改接口");
         return new ResultVo().setCode(200).setData(iUserService.updatePhoto(file, userId));
     }
     @RequiresRoles("admin")
     @ApiOperation("修改审核未通过用户不合格商品数接口")
     @GetMapping("/unqualifiedGoodsUpdate")
     public ResultVo photoUpdate(@ApiParam("用户名")String userName) {
+        log.info("修改审核未通过用户不合格商品数接口");
         return new ResultVo().setCode(200).setData(iUserService.unqualifiedGoodsUpdate(userName));
     }
     @RequiresRoles("admin")
     @ApiOperation("查询不合规商品过多的用户")
     @GetMapping("/get")
     public ResultVo all(@ApiParam("当前页")int current,@ApiParam("大小")int size){
+        log.info("查询不合规商品过多的用户");
         Page<User> page = new Page<>(current, size);
         LambdaQueryWrapper<User> userLambdaQueryWrapper = Wrappers.lambdaQuery();
         userLambdaQueryWrapper.ge(User::getUnqualifiedGoods,10);
@@ -139,6 +143,7 @@ public class UserController {
     @ApiOperation("修改审核未通过用户不合格商品数接口")
     @GetMapping("/scoreUpdate")
     public ResultVo scoreUpdate(@ApiParam("用户名")String userName,double score) {
+        log.info("修改审核未通过用户不合格商品数接口");
         return new ResultVo().setCode(200).setData(iUserService.scoreUpdate(userName,score));
     }
 }

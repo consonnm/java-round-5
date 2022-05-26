@@ -65,14 +65,15 @@ public class PostController {
     @ApiOperation("增加帖子接口")
     @GetMapping("/insert")
     public ResultVo insert(@ApiParam("商品id") int postId, @ApiParam("购买者id") int buyerId, @ApiParam("描述") String description) {
+        log.info("增加帖子接口");
         return new ResultVo().setData(iPostsService.insert(postId, buyerId, description));
     }
 
     @ApiOperation("用户拥有帖子查询接口")
     @GetMapping("/getUserPost")
     public ResultVo query(@ApiParam("帖子id") int buyerId) {
-        log.info("帖子内容查询接口");
-        List posts;
+        log.info("用户拥有帖子查询接口");
+        List<Posts> posts;
 
         posts = iPostsService.list(
                 new LambdaQueryWrapper<Posts>()
@@ -84,7 +85,7 @@ public class PostController {
     @ApiOperation("根据标签查询帖子接口")
     @GetMapping("/getPostsByCategory")
     public ResultVo queryPostByCategory(@ApiParam("标签id") String categoryName) {
-        log.info("帖子标签查询接口");
+        log.info("根据标签查询帖子接口");
                Category c= iCategoryService.getOne(new LambdaQueryWrapper<Category>()
                        .eq(Category::getGoodSort, categoryName));
                List<Posts>list= iCategoryService.findPostsByCategory(c.getCategoryId());
