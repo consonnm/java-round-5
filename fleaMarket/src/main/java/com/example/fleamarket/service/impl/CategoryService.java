@@ -15,11 +15,12 @@ import java.util.List;
 
 @Service
 public class CategoryService extends ServiceImpl<ICategoryDao, Category> implements ICategoryService {
-    public Boolean insert(String goodSort,String describe){
+    public int insert(String goodSort,String describe){
         Category category = new Category();
         category.setGoodSort(goodSort);
         category.setGoodDescribe(describe);
-        return save(category);
+        save(category);
+        return category.getCategoryId();
     }
     public Boolean remove(int id) {
         LambdaQueryWrapper<Category> lwq = Wrappers.lambdaQuery();

@@ -2,6 +2,7 @@ package com.example.fleamarket.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.fleamarket.entity.Category;
+import com.example.fleamarket.exception.ControllerException;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.ICategoryService;
 import io.swagger.annotations.ApiOperation;
@@ -31,7 +32,9 @@ public class CategoryController {
     @GetMapping("/insert")
     public ResultVo insert(@ApiParam("分类名")String goodSort,@ApiParam("描述")String goodDescribe){
         log.info("增加分类");
-        return new ResultVo().setData(iCategoryService.insert(goodSort,goodDescribe));
+        if(goodSort!=null){
+        return new ResultVo().setData(iCategoryService.insert(goodSort,goodDescribe));}
+        else throw new  ControllerException("分类不可为null");
     }
     @RequiresRoles("admin")
     @ApiOperation("删除分类")

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IPostsService extends IService<Posts> {
     Posts queryById(int PostId);
-     boolean insert(int postId,int buyerId,String description);
+     int insert(int buyerId,String description);
      Boolean remove(int postId);
      List<Category> findCategorylist(int postId);
      boolean addCategory(int postId,List<Category>categoryList);

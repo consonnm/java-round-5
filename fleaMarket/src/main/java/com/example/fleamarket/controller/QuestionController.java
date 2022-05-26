@@ -3,6 +3,7 @@ package com.example.fleamarket.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.fleamarket.entity.Announcement;
 import com.example.fleamarket.entity.Question;
+import com.example.fleamarket.exception.ControllerException;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IAnnouncementService;
 import com.example.fleamarket.service.IQuestionService;
@@ -41,7 +42,10 @@ public class QuestionController {
     @GetMapping("/remove")
     public ResultVo remove(@ApiParam("公告id")int questionId){
         log.info("删除问题");
-        return new ResultVo().setData(iQuestionService.remove(questionId));
+        if(iQuestionService.remove(questionId)==true){
+            return new ResultVo().setCode(200);
+        }
+        else throw new ControllerException("Id不存在");
     }
     @RequiresRoles("admin")
     @ApiOperation("修改问题")

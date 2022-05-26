@@ -22,13 +22,12 @@ public class PostService extends ServiceImpl<IPostsDao, Posts> implements IPosts
     }
 
     @Override
-    public boolean insert(int postId, int buyerId, String description) {
+    public int insert( int buyerId, String description) {
         Posts posts=new Posts();
-        posts.setPostId(postId);
         posts.setBuyerId(buyerId);
         posts.setDescription(description);
         save(posts);
-        return save(posts);
+        return posts.getPostId();
     }
 
     public Boolean remove(int postId) {
@@ -48,7 +47,7 @@ public class PostService extends ServiceImpl<IPostsDao, Posts> implements IPosts
         ) {
             getBaseMapper().addCategory(postID, c.getCategoryId());
         }
-        ;
+
         return false;
     }
 

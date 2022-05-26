@@ -3,6 +3,7 @@ package com.example.fleamarket.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.fleamarket.entity.Category;
 import com.example.fleamarket.entity.Posts;
+import com.example.fleamarket.exception.ControllerException;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.ICategoryService;
 import com.example.fleamarket.service.IPostsService;
@@ -55,6 +56,9 @@ public class PostController {
     public ResultVo queryPostContent(@ApiParam("帖子id") int postId) {
         log.info("帖子内容查询接口");
         Posts P = iPostsService.queryById(postId);
+        if(P==null){
+            throw new ControllerException("不存在该帖子");
+        }
         P.setReplyList(
                 iReplyService.queryForReplyList(postId)
         );
@@ -64,9 +68,10 @@ public class PostController {
 
     @ApiOperation("增加帖子接口")
     @GetMapping("/insert")
-    public ResultVo insert(@ApiParam("商品id") int postId, @ApiParam("购买者id") int buyerId, @ApiParam("描述") String description) {
+    public ResultVo insert(@ApiParam("帖子id") int postId, @ApiParam("购买者id") int buyerId, @ApiParam("描述") String description) {
         log.info("增加帖子接口");
-        return new ResultVo().setData(iPostsService.insert(postId, buyerId, description));
+
+        return new ResultVo().setData(iPostsService.insert( buyerId, description));
     }
 
     @ApiOperation("用户拥有帖子查询接口")
@@ -88,6 +93,9 @@ public class PostController {
         log.info("根据标签查询帖子接口");
                Category c= iCategoryService.getOne(new LambdaQueryWrapper<Category>()
                        .eq(Category::getGoodSort, categoryName));
+               if (c==null){
+                   throw new ControllerException("该标签不存在");
+               }
                List<Posts>list= iCategoryService.findPostsByCategory(c.getCategoryId());
 
         return new ResultVo().setData(list);

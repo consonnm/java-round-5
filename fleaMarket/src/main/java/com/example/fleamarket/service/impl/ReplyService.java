@@ -17,16 +17,26 @@ public class ReplyService extends ServiceImpl<IReplyDao, Reply> implements IRepl
 
 
     @Override
-    public boolean insertWithPic(int Id, int floor, int postId, int sellManId, String pic, String description) {
-        Reply reply=new Reply(Id,postId,sellManId,description,pic,floor);
-
-        return save(reply);
+    public int insertWithPic( int floor, int postId, int sellManId, String pic, String description) {
+        Reply reply=new Reply();
+        reply.setFloor(floor);
+        reply.setPostId(postId);
+        reply.setPic(pic);
+        reply.setSellManId(sellManId);
+        reply.setDescription(description);
+        save(reply);
+        return reply.getId();
     }
 
     @Override
-    public boolean insertWithoutPic(int Id, int floor, int postId, int sellManId, String description) {
-        Reply reply=new Reply(Id,postId,sellManId,description,floor);
-        return save(reply);
+    public int insertWithoutPic( int floor, int postId, int sellManId, String description) {
+        Reply reply=new Reply();
+        reply.setFloor(floor);
+        reply.setPostId(postId);
+        reply.setSellManId(sellManId);
+        reply.setDescription(description);
+        save(reply);
+        return reply.getId();
     }
 
 
