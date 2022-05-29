@@ -25,6 +25,7 @@ public class AuditController {
     @ApiOperation("查询所有审核记录")
     @GetMapping("/getAllAudit")
     public ResultVo all(@ApiParam("当前页")int current,@ApiParam("大小") int size){
+        log.info("查询所有审核记录");
         Page<Audit> page = new Page<>(current ,size );
         return new ResultVo().setData(iAuditService.findByPage(page,null));
     }
@@ -32,6 +33,7 @@ public class AuditController {
     @ApiOperation("增加审核记录")
     @GetMapping("/insert")
     public ResultVo insert(@ApiParam("情况")Boolean status,@ApiParam("商品id")int goodId,@ApiParam("管理员id")int adminId){
+        log.info("增加审核记录");
         return new ResultVo().setData(iAuditService.insert(status,goodId,adminId));
     }
 }

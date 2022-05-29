@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.fleamarket.entity.History;
+import com.example.fleamarket.exception.ControllerException;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IHistoryService;
 import io.swagger.annotations.ApiOperation;
@@ -40,6 +41,9 @@ public class HistoryController {
     @GetMapping("/remove")
     public ResultVo remove(@ApiParam("用户id")int userId,@ApiParam("商品id")int goodId){
         log.info("删除历史");
-        return new ResultVo().setData(iHistoryService.remove(userId,goodId));
+        if(iHistoryService.remove(userId,goodId)==true){
+            return new ResultVo().setCode(200);
+        }
+        else throw new ControllerException("Id不存在");
     }
 }

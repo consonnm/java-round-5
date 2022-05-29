@@ -1,4 +1,5 @@
 package com.example.fleamarket.entity;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -6,12 +7,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @TableName("reply")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("帖子")
 public class Reply{
+    @TableId
     @ApiModelProperty("主键id")
     int Id;
     @ApiModelProperty("对应帖子id")

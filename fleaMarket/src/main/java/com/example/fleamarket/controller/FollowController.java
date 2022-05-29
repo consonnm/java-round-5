@@ -25,6 +25,8 @@ public class FollowController {
     @ApiOperation("查询所有关注")
     @GetMapping("/getAllFollow")
     public ResultVo all(int userId, @ApiParam("当前页")int current, @ApiParam("大小")int size){
+        log.info("查询所有关注");
+
         Page<Follow> page = new Page<>(current , size );
         LambdaQueryWrapper<Follow> userLambdaQueryWrapper = Wrappers.lambdaQuery();
         userLambdaQueryWrapper.eq(Follow::getFollowerId,userId);
@@ -33,11 +35,13 @@ public class FollowController {
     @ApiOperation("增加关注")
     @GetMapping("/insert")
     public ResultVo insert(@ApiParam("关注者id")int followerId,@ApiParam("被关注者id")int followedId){
+        log.info("查询所有关注");
         return new ResultVo().setData(iFollowService.insert(followerId, followedId));
     }
     @ApiOperation("删除关注")
     @GetMapping("/remove")
     public ResultVo remove(@ApiParam("关注者id")int followerId,@ApiParam("被关注者id")int followedId){
+        log.info("查询所有关注");
         return new ResultVo().setData(iFollowService.remove(followerId,followedId));
     }
 }

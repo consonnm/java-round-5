@@ -104,12 +104,14 @@ public class GoodController {
     @ApiOperation("增加商品接口")
     @GetMapping("/insert")
     public ResultVo insert(@ApiParam("商品名称")String goodName, @ApiParam("概述")String summary, @ApiParam("详细介绍")String detail, @ApiParam("价格")double price, @ApiParam("分类")String goodSort,@ApiParam("用户id")int userId){
+        log.info("增加商品接口");
         return new ResultVo().setData(iGoodService.insert(goodName,summary,detail,price,goodSort,userId));
 
     }
     @ApiOperation("删除商品接口")
     @GetMapping("/remove")
     public ResultVo remove(@ApiParam("商品id")int goodId) {
+        log.info("删除商品接口");
         return new ResultVo().setData(iGoodService.remove(goodId));
     }
 
@@ -117,6 +119,7 @@ public class GoodController {
     @ApiOperation("用户未出售商品查询接口")
     @GetMapping("/unsoldGood")
     public ResultVo unsoldGood(@ApiParam("用户id")int userId,@ApiParam("当前页")int current,@ApiParam("大小")int size) {
+        log.info("用户未出售商品查询接口");
         Page<Goods> page = new Page<>(current,size);
         LambdaQueryWrapper<Goods> userLambdaQueryWrapper = Wrappers.lambdaQuery();
         userLambdaQueryWrapper.eq(Goods::getUserId, userId).eq(Goods::getIsSold,false);
@@ -126,6 +129,7 @@ public class GoodController {
     @ApiOperation("用户已出售商品查询接口")
     @GetMapping("/isSoldGood")
     public ResultVo isSoldGood(@ApiParam("用户id")int userId,@ApiParam("当前页")int current,@ApiParam("大小")int size) {
+        log.info("用户已出售商品查询接口");
         Page<Goods> page = new Page<>(current,size);
         LambdaQueryWrapper<Goods> userLambdaQueryWrapper = Wrappers.lambdaQuery();
         userLambdaQueryWrapper.eq(Goods::getUserId, userId).eq(Goods::getIsSold,true);
@@ -135,6 +139,7 @@ public class GoodController {
     @ApiOperation("商品出售情况修改接口")
     @GetMapping("/statusUpdate")
     public ResultVo statusUpdate(int goodId) {
+        log.info("商品出售情况修改接口");
         return new ResultVo().setData(iGoodService.isSoldUpdate(goodId));
     }
 }

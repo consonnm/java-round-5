@@ -11,19 +11,15 @@ import lombok.NoArgsConstructor;
 
 
 
-@TableName("comment")
+@TableName("goods_collection")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "用户评价")
-public class Comment{
+@ApiModel(description = "收藏")
+public class GoodsCollection {
 	@TableId(type = IdType.AUTO)
-	@ApiModelProperty("主键，自增")
-	int commentId;
-	@ApiModelProperty("评价用户的id")
-	int commentUserId;
-	@ApiModelProperty("被评价用户的id")
-	int beCommentedUserId;
-	@ApiModelProperty("评论的内容")
-	String content;
+	@ApiModelProperty("用户的id")
+	Integer userId;
+	@ApiModelProperty("商品的id")
+	Integer goodId;
 }

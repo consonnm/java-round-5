@@ -3,6 +3,7 @@ package com.example.fleamarket.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.fleamarket.entity.Announcement;
 import com.example.fleamarket.entity.Question;
+import com.example.fleamarket.exception.ControllerException;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IAnnouncementService;
 import com.example.fleamarket.service.IQuestionService;
@@ -25,6 +26,7 @@ public class QuestionController {
     @ApiOperation("查询所有问题")
     @GetMapping("/getAllAnnouncement")
     public ResultVo all(@ApiParam("当前页")int current, @ApiParam("大小") int size){
+        log.info("查询所有问题");
         Page<Question> page = new Page<>(current, size );
         return new ResultVo().setData(iQuestionService.findByPage(page,null));
     }
@@ -32,19 +34,24 @@ public class QuestionController {
     @ApiOperation("增加问题")
     @GetMapping("/insert")
     public ResultVo insert(@ApiParam("问题")String question,@ApiParam("回答")String answer){
+        log.info("增加问题");
         return new ResultVo().setData(iQuestionService.insert(question,answer));
     }
     @RequiresRoles("admin")
     @ApiOperation("删除问题")
     @GetMapping("/remove")
     public ResultVo remove(@ApiParam("公告id")int questionId){
-        return new ResultVo().setData(iQuestionService.remove(questionId));
+        log.info("删除问题");
+        if(iQuestionService.remove(questionId)==true){
+            return new ResultVo().setCode(200);
+        }
+        else throw new ControllerException("Id不存在");
     }
     @RequiresRoles("admin")
     @ApiOperation("修改问题")
     @GetMapping("/update")
     public ResultVo baseUpdate(@ApiParam("问题id")int questionId,@ApiParam("问题")String question,@ApiParam("回答")String answer) {
-        log.info("问题修改");
+        log.info("修改问题");
         return new ResultVo().setData(iQuestionService.update(questionId,question,answer));
     }
 }
