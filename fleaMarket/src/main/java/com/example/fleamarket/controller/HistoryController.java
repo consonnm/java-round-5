@@ -12,7 +12,6 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,13 +37,16 @@ public class HistoryController {
     @GetMapping("/insert")
     public ResultVo insert(@ApiParam("用户id")int userId,@ApiParam("商品id")int goodId){
         log.info("增加历史");
+        if(iHistoryService.find(userId,goodId)){
+            remove(userId,goodId);
+        }
         return new ResultVo().setData(iHistoryService.insert(userId,goodId));
     }
     @ApiOperation("删除历史")
     @GetMapping("/remove")
     public ResultVo remove(@ApiParam("用户id")int userId,@ApiParam("商品id")int goodId){
         log.info("删除历史");
-        if(iHistoryService.remove(userId,goodId)==true){
+        if(iHistoryService.remove(userId, goodId)){
             return new ResultVo().setCode(200);
         }
         else throw new ControllerException("Id不存在");
