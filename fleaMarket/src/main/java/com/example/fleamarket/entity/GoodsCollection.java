@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 
 
-@TableName("goods_collection")
+@TableName("collection")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

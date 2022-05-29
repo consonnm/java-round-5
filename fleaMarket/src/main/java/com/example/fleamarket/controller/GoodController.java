@@ -5,12 +5,15 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.fleamarket.entity.Goods;
+import com.example.fleamarket.entity.User;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IGoodService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -108,31 +111,43 @@ public class GoodController {
         return new ResultVo().setData(iGoodService.insert(goodName,summary,detail,price,goodSort,userId));
 
     }
+    @RequiresRoles("user::user")
     @ApiOperation("删除商品接口")
     @GetMapping("/remove")
     public ResultVo remove(@ApiParam("商品id")int goodId) {
         log.info("删除商品接口");
         return new ResultVo().setData(iGoodService.remove(goodId));
     }
-
-    @RequiresRoles("user::user")
     @ApiOperation("用户未出售商品查询接口")
     @GetMapping("/unsoldGood")
     public ResultVo unsoldGood(@ApiParam("用户id")int userId,@ApiParam("当前页")int current,@ApiParam("大小")int size) {
         log.info("用户未出售商品查询接口");
         Page<Goods> page = new Page<>(current,size);
+        Subject subject = SecurityUtils.getSubject();
+        User user =(User) subject.getPrincipal();
         LambdaQueryWrapper<Goods> userLambdaQueryWrapper = Wrappers.lambdaQuery();
-        userLambdaQueryWrapper.eq(Goods::getUserId, userId).eq(Goods::getIsSold,false);
+        if(user.getUserId()==userId){
+            userLambdaQueryWrapper.eq(Goods::getUserId, userId);
+        }
+        else{
+            userLambdaQueryWrapper.eq(Goods::getUserId, userId).eq(Goods::getIsSold,false);
+        }
         return new ResultVo().setData(iGoodService.findByPage(page,userLambdaQueryWrapper));
     }
-    @RequiresRoles("user::user")
     @ApiOperation("用户已出售商品查询接口")
     @GetMapping("/isSoldGood")
     public ResultVo isSoldGood(@ApiParam("用户id")int userId,@ApiParam("当前页")int current,@ApiParam("大小")int size) {
         log.info("用户已出售商品查询接口");
         Page<Goods> page = new Page<>(current,size);
+        Subject subject = SecurityUtils.getSubject();
+        User user =(User) subject.getPrincipal();
         LambdaQueryWrapper<Goods> userLambdaQueryWrapper = Wrappers.lambdaQuery();
-        userLambdaQueryWrapper.eq(Goods::getUserId, userId).eq(Goods::getIsSold,true);
+        if(user.getUserId()==userId){
+            userLambdaQueryWrapper.eq(Goods::getUserId, userId);
+        }
+        else{
+            userLambdaQueryWrapper.eq(Goods::getUserId, userId).eq(Goods::getIsSold,true);
+        }
         return new ResultVo().setData(iGoodService.findByPage(page,userLambdaQueryWrapper));
     }
     @RequiresRoles("user::user")

@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.fleamarket.entity.GoodsCollection;
 import org.springframework.stereotype.Service;
 
-@Service
+
 public interface IGoodsCollectionService extends IService<GoodsCollection> {
     Boolean insert(int userId,int goodId);
     Boolean remove(int userId,int goodId);

@@ -10,6 +10,7 @@ import com.example.fleamarket.service.IFollowService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,18 +27,19 @@ public class FollowController {
     @GetMapping("/getAllFollow")
     public ResultVo all(int userId, @ApiParam("当前页")int current, @ApiParam("大小")int size){
         log.info("查询所有关注");
-
         Page<Follow> page = new Page<>(current , size );
         LambdaQueryWrapper<Follow> userLambdaQueryWrapper = Wrappers.lambdaQuery();
         userLambdaQueryWrapper.eq(Follow::getFollowerId,userId);
         return new ResultVo().setData(iFollowService.findByPage(page,userLambdaQueryWrapper));
     }
+    @RequiresRoles("user::user")
     @ApiOperation("增加关注")
     @GetMapping("/insert")
     public ResultVo insert(@ApiParam("关注者id")int followerId,@ApiParam("被关注者id")int followedId){
         log.info("查询所有关注");
         return new ResultVo().setData(iFollowService.insert(followerId, followedId));
     }
+    @RequiresRoles("user::user")
     @ApiOperation("删除关注")
     @GetMapping("/remove")
     public ResultVo remove(@ApiParam("关注者id")int followerId,@ApiParam("被关注者id")int followedId){

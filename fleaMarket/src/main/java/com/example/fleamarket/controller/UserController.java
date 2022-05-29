@@ -102,9 +102,9 @@ public class UserController {
     }
     @ApiOperation("用户信息查询接口")
     @GetMapping("/select")
-    public ResultVo select(@ApiParam("用户名") String username) {
+    public ResultVo select(@ApiParam("用户名") String userId) {
         log.info("用户信息查询");
-        User us = iUserService.queryById(username);
+        User us = iUserService.getById(userId);
         Map<String, Object> map = new HashMap<>();
         map.put("user", us);
         return new ResultVo().setCode(401).setMessage("登录成功").setData(map);

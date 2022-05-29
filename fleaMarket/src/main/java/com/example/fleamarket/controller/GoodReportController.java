@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+@CrossOrigin
 @Slf4j
 @RestController
 @RequestMapping(value ="/goodReport")
@@ -28,7 +28,6 @@ public class GoodReportController {
     @ApiOperation("查询所有商品举报记录")
     @GetMapping("/getAllGoodReport")
     public ResultVo all(@ApiParam("当前页")int current, @ApiParam("大小") int size){
-        log.info("查询所有商品举报记录");
         Page<GoodReport> page = new Page<>(current , size );
         LambdaQueryWrapper<GoodReport> userLambdaQueryWrapper = Wrappers.lambdaQuery();
         userLambdaQueryWrapper.eq(GoodReport::getStatus, "未审核");
@@ -38,14 +37,12 @@ public class GoodReportController {
     @ApiOperation("增加举报记录")
     @GetMapping("/insert")
     public ResultVo insert(@ApiParam("内容")String context,int goodId){
-        log.info("增加举报记录");
         return new ResultVo().setData(iGoodReportService.insert(context,goodId));
     }
     @RequiresRoles("admin")
     @ApiOperation("修改审核状态")
     @GetMapping("/update")
     public ResultVo update(String status,int reportId){
-        log.info("修改审核状态");
         return new ResultVo().setData(iGoodReportService.update(status,reportId));
     }
 

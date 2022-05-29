@@ -1,18 +1,15 @@
 package com.example.fleamarket.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.fleamarket.entity.Announcement;
 import com.example.fleamarket.entity.Question;
 import com.example.fleamarket.exception.ControllerException;
 import com.example.fleamarket.response.ResultVo;
-import com.example.fleamarket.service.IAnnouncementService;
 import com.example.fleamarket.service.IQuestionService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

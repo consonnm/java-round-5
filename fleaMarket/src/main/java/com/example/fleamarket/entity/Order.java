@@ -32,7 +32,9 @@ public class Order{
     @ApiModelProperty("购买人姓名")
     String buyerName;
     @ApiModelProperty("联系电话")
-    String phoneNumber;
+    String place;
+    @ApiModelProperty("联系电话")
+    String pay;
     @ApiModelProperty("订单状态")
     String orderStatus;
 
