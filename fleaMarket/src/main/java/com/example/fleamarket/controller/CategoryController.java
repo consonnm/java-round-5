@@ -41,6 +41,8 @@ public class CategoryController {
     @GetMapping("/remove")
     public ResultVo remove(@ApiParam("分类id")int id){
         log.info("删除分类");
-        return new ResultVo().setData(iCategoryService.remove(id));
+        if(iCategoryService.remove(id)==true){
+            return new ResultVo().setCode(200);}
+        else throw new ControllerException("此公告不存在");
     }
 }

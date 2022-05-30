@@ -44,6 +44,7 @@ public class FollowController {
     @GetMapping("/remove")
     public ResultVo remove(@ApiParam("关注者id")int followerId,@ApiParam("被关注者id")int followedId){
         log.info("查询所有关注");
+
         return new ResultVo().setData(iFollowService.remove(followerId,followedId));
     }
 }

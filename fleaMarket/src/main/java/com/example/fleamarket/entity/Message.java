@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 
-@TableName("comment")
+@TableName("message")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "用户评价")
+@ApiModel(description = "消息")
 public class Message {
 	@TableId
 	@ApiModelProperty("消息id")

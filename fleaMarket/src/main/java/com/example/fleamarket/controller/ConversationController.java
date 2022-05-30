@@ -78,7 +78,6 @@ public class ConversationController {
     @Autowired
     IConversationService iConversationService;
     IMessageService iMessageService;
-    AliyunOSSUtil aliyunOSSUtil;
     @ApiOperation("发送文本消息接口")
     @GetMapping("/insertReplyWithoutPic")
     public ResultVo insert1(@ApiParam("用户1ID")int user1Id,@ApiParam("用户2ID")int user2Id,@ApiParam("消息内容")String content) {
@@ -99,7 +98,6 @@ public class ConversationController {
         if(user.getUserId()!=user1Id||user.getUserId()!=user2Id){
             throw new AuthenticationException();
         }
-        String pic = aliyunOSSUtil.upload(file);
         iMessageService.insertPic(user1Id, user2Id, file);
         return new ResultVo().setCode(200);
 
