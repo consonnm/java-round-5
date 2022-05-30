@@ -144,6 +144,7 @@ public class UserController {
     @GetMapping("/scoreUpdate")
     public ResultVo scoreUpdate(@ApiParam("用户名")String userName,double score) {
         log.info("修改审核未通过用户不合格商品数接口");
+
         return new ResultVo().setCode(200).setData(iUserService.scoreUpdate(userName,score));
     }
 }
