@@ -1,0 +1,33 @@
+package com.example.fleamarket.entity;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+
+
+@TableName("comment")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ApiModel(description = "用户评价")
+public class Message {
+	@TableId
+	@ApiModelProperty("消息id")
+	int messageId;
+	@ApiModelProperty("用户1的id")
+	int User1Id;
+
+	@ApiModelProperty("用户2的id")
+	int User2Id;
+	@ApiModelProperty("消息内容")
+	String content;
+	@ApiModelProperty("发送时间")
+	LocalDate date;
+}

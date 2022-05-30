@@ -49,6 +49,7 @@ public class QuestionController {
     @GetMapping("/update")
     public ResultVo baseUpdate(@ApiParam("问题id")int questionId,@ApiParam("问题")String question,@ApiParam("回答")String answer) {
         log.info("修改问题");
+
         return new ResultVo().setData(iQuestionService.update(questionId,question,answer));
     }
 }

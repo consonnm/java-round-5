@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.fleamarket.entity.GoodsCollection;
+import com.example.fleamarket.exception.ControllerException;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IGoodsCollectionService;
 import io.swagger.annotations.ApiOperation;
@@ -43,6 +44,9 @@ public class PostsCollectionController {
     @GetMapping("/remove")
     public ResultVo remove(@ApiParam("用户id")int userId,@ApiParam("帖子id")int goodId){
         log.info("删除收藏");
-        return new ResultVo().setData(iPostsCollectionService.remove(userId,goodId));
+        if(iPostsCollectionService.remove(userId,goodId)==true){
+            return new ResultVo().setCode(200);
+        }
+       else throw new ControllerException("id不存在");
     }
 }

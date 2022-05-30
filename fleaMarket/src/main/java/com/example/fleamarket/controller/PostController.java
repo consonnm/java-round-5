@@ -1,7 +1,10 @@
 package com.example.fleamarket.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.fleamarket.entity.Category;
+import com.example.fleamarket.entity.Goods;
 import com.example.fleamarket.entity.Posts;
 import com.example.fleamarket.exception.ControllerException;
 import com.example.fleamarket.response.ResultVo;
@@ -38,7 +41,15 @@ public class PostController {
         return new ResultVo().setCode(200);
 
     }
-
+    @ApiOperation("帖子模糊查询接口")
+    @GetMapping("/getPostsCategory")
+    public ResultVo list(@ApiParam("寻物描述") String postContent,@ApiParam("当前页")int current,@ApiParam("大小")int size) {
+        log.info("模糊查询帖子"+postContent);
+        Page<Posts> page = new Page<>(current, size);
+        LambdaQueryWrapper<Posts> userLambdaQueryWrapper = Wrappers.lambdaQuery();
+        userLambdaQueryWrapper.like(Posts::getDescription, postContent);
+        return new ResultVo().setData(iPostsService.findByPage(page, userLambdaQueryWrapper));
+    }
     @ApiOperation("帖子标签查询接口")
     @GetMapping("/getPostsCategory")
     public ResultVo queryPostCategory(@ApiParam("帖子id") int postId) {
@@ -68,7 +79,7 @@ public class PostController {
 
     @ApiOperation("增加帖子接口")
     @GetMapping("/insert")
-    public ResultVo insert(@ApiParam("帖子id") int postId, @ApiParam("购买者id") int buyerId, @ApiParam("描述") String description) {
+    public ResultVo insert( @ApiParam("购买者id") int buyerId, @ApiParam("描述") String description) {
         log.info("增加帖子接口");
 
         return new ResultVo().setData(iPostsService.insert( buyerId, description));
@@ -89,7 +100,7 @@ public class PostController {
 
     @ApiOperation("根据标签查询帖子接口")
     @GetMapping("/getPostsByCategory")
-    public ResultVo queryPostByCategory(@ApiParam("标签id") String categoryName) {
+    public ResultVo queryPostByCategory(@ApiParam("标签名字") String categoryName) {
         log.info("根据标签查询帖子接口");
                Category c= iCategoryService.getOne(new LambdaQueryWrapper<Category>()
                        .eq(Category::getGoodSort, categoryName));
