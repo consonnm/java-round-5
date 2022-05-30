@@ -9,6 +9,10 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
@@ -44,7 +48,7 @@ public class ReplyController {
     @GetMapping("/deleteReply")
     public ResultVo delete(@ApiParam("主键id")int Id) {
         log.info("删除回复接口");
-        if(iReplyService.remove(Id)==true){
+        if(iReplyService.remove(Id)){
             return new ResultVo().setCode(200);
         }
         else throw new ControllerException("id不存在");

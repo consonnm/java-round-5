@@ -42,7 +42,7 @@ public class PostController {
 
     }
     @ApiOperation("帖子模糊查询接口")
-    @GetMapping("/getPostsCategory")
+    @GetMapping("/LikelyQueryPost")
     public ResultVo list(@ApiParam("寻物描述") String postContent,@ApiParam("当前页")int current,@ApiParam("大小")int size) {
         log.info("模糊查询帖子"+postContent);
         Page<Posts> page = new Page<>(current, size);
