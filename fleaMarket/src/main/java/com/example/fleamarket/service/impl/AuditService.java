@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuditService extends ServiceImpl<IAuditDao, Audit> implements IAuditService {
+    @Override
     public Boolean insert(Boolean status,int goodId,int adminId){
         Audit audit = new Audit();
         audit.setStatus(status);
@@ -23,6 +24,7 @@ public class AuditService extends ServiceImpl<IAuditDao, Audit> implements IAudi
         audit.setAdminId(adminId);
         return save(audit);
     }
+    @Override
     public IPage<Audit> findByPage(Page<Audit> page, LambdaQueryWrapper<Audit> userLambdaQueryWrapper){
         return  baseMapper.selectPage(page,userLambdaQueryWrapper);
     }

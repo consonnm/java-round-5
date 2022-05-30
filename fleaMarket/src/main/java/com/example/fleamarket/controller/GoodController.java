@@ -15,10 +15,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
@@ -65,7 +62,6 @@ public class GoodController {
         userLambdaQueryWrapper.eq(Goods::getGoodSort, goodSort).like(Goods::getGoodName,goodName);
         return new ResultVo().setData(iGoodService.findByPage(page,userLambdaQueryWrapper));
     }
-    @RequiresRoles("user::user")
     @ApiOperation("根据id查询商品的详细信息")
     @GetMapping("/getGoodById")
     public ResultVo list(@ApiParam("商品id") int goodId) {
@@ -98,7 +94,7 @@ public class GoodController {
     }
     @RequiresRoles("user::user")
     @ApiOperation("商品图片修改接口")
-    @GetMapping("/photoUpdate")
+    @PostMapping("/photoUpdate")
     public ResultVo photoUpdate(@ApiParam("图片")MultipartFile file, @ApiParam("商品id")int goodId) {
         log.info("商品图片修改接口");
         return new ResultVo().setData(iGoodService.updatePhoto(file, goodId));
@@ -127,10 +123,10 @@ public class GoodController {
         User user =(User) subject.getPrincipal();
         LambdaQueryWrapper<Goods> userLambdaQueryWrapper = Wrappers.lambdaQuery();
         if(user.getUserId()==userId){
-            userLambdaQueryWrapper.eq(Goods::getUserId, userId);
+            userLambdaQueryWrapper.eq(Goods::getUserId, userId).eq(Goods::getIsSold,false);
         }
         else{
-            userLambdaQueryWrapper.eq(Goods::getUserId, userId).eq(Goods::getIsSold,false);
+            userLambdaQueryWrapper.eq(Goods::getUserId, userId).eq(Goods::getIsSold,false).eq(Goods::getApproved,"已审核");
         }
         return new ResultVo().setData(iGoodService.findByPage(page,userLambdaQueryWrapper));
     }
@@ -143,10 +139,10 @@ public class GoodController {
         User user =(User) subject.getPrincipal();
         LambdaQueryWrapper<Goods> userLambdaQueryWrapper = Wrappers.lambdaQuery();
         if(user.getUserId()==userId){
-            userLambdaQueryWrapper.eq(Goods::getUserId, userId);
+            userLambdaQueryWrapper.eq(Goods::getUserId, userId).eq(Goods::getIsSold,true);
         }
         else{
-            userLambdaQueryWrapper.eq(Goods::getUserId, userId).eq(Goods::getIsSold,true);
+            userLambdaQueryWrapper.eq(Goods::getUserId, userId).eq(Goods::getIsSold,true).eq(Goods::getApproved,"已审核");
         }
         return new ResultVo().setData(iGoodService.findByPage(page,userLambdaQueryWrapper));
     }

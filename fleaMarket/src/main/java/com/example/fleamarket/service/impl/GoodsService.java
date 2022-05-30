@@ -23,7 +23,6 @@ public class GoodsService extends ServiceImpl<IGoodsDao, Goods> implements IGood
     public Goods queryById(int goodId) {
         return getOne(new LambdaQueryWrapper<Goods>()
                 .eq(Goods::getGoodId,goodId)
-                .eq(Goods::getApproved, "已审核")
         );
     }
 
@@ -32,7 +31,7 @@ public class GoodsService extends ServiceImpl<IGoodsDao, Goods> implements IGood
         Goods goods = baseMapper.selectById(goodId);
         goods.setGoodId(goodId);
         goods.setGoodName(goodName);
-        goods.setDetail(summary);
+        goods.setSummary(summary);
         goods.setDetail(detail);
         goods.setPrice(price);
         goods.setGoodSort(goodSort);
@@ -64,12 +63,13 @@ public class GoodsService extends ServiceImpl<IGoodsDao, Goods> implements IGood
     public int insert(String goodName,String summary,String detail,double price,String goodSort,int userId){
         Goods goods = new Goods();
         goods.setGoodName(goodName);
-        goods.setDetail(summary);
+        goods.setSummary(summary);
         goods.setDetail(detail);
         goods.setPrice(price);
         goods.setGoodSort(goodSort);
         goods.setUserId(userId);
         goods.setApproved("未审核");
+        goods.setIsSold(false);
         save(goods);
         return goods.getGoodId();
     }
