@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CollectionController {
     @Autowired
     IGoodsCollectionService iGoodsCollectionService;
-    @RequiresRoles("usr::user")
+    @RequiresRoles("user::user")
     @ApiOperation("查询所有收藏")
     @GetMapping("/getAllFollow")
     public ResultVo all(@ApiParam("用户id")int userId, @ApiParam("当前页")int current,@ApiParam("大小") int size){
@@ -31,14 +31,14 @@ public class CollectionController {
         userLambdaQueryWrapper.eq(GoodsCollection::getUserId,userId);
         return new ResultVo().setData(iGoodsCollectionService.findByPage(page,userLambdaQueryWrapper));
     }
-    @RequiresRoles("usr::user")
+    @RequiresRoles("user::user")
     @ApiOperation("增加收藏")
     @GetMapping("/insert")
     public ResultVo insert(@ApiParam("用户id")int userId,@ApiParam("商品id")int goodId){
         log.info("增加收藏");
         return new ResultVo().setData(iGoodsCollectionService.insert(userId,goodId));
     }
-    @RequiresRoles("usr::user")
+    @RequiresRoles("user::user")
     @ApiOperation("删除收藏")
     @GetMapping("/remove")
     public ResultVo remove(@ApiParam("用户id")int userId,@ApiParam("商品id")int goodId){

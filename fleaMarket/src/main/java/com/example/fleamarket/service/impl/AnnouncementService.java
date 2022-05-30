@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AnnouncementService extends ServiceImpl<IAnnouncementDao, Announcement> implements IAnnouncementService {
+    @Override
     public Boolean insert(String context,String topic,String time){
         Announcement announcement = new Announcement();
         announcement.setContext(context);
@@ -20,11 +21,13 @@ public class AnnouncementService extends ServiceImpl<IAnnouncementDao, Announcem
         announcement.setTopic(topic);
         return save(announcement);
     }
+    @Override
     public Boolean remove(int announcementId) {
         LambdaQueryWrapper<Announcement> lwq = Wrappers.lambdaQuery();
         lwq.eq(Announcement::getAnnouncementId,announcementId);
         return remove(lwq);
     }
+    @Override
     public IPage<Announcement> findByPage(Page<Announcement> page,LambdaQueryWrapper<Announcement> userLambdaQueryWrapper){
         return  baseMapper.selectPage(page,userLambdaQueryWrapper);
     }

@@ -22,11 +22,13 @@ public class CategoryService extends ServiceImpl<ICategoryDao, Category> impleme
         save(category);
         return category.getCategoryId();
     }
+    @Override
     public Boolean remove(int id) {
         LambdaQueryWrapper<Category> lwq = Wrappers.lambdaQuery();
         lwq.eq(Category::getCategoryId,id);
         return remove(lwq);
     }
+    @Override
     public IPage<Category> findByPage(Page<Category> page, LambdaQueryWrapper<Category> userLambdaQueryWrapper){
         return  baseMapper.selectPage(page,userLambdaQueryWrapper);
     }

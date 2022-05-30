@@ -10,4 +10,5 @@ public interface IHistoryService extends IService<History> {
     Boolean insert(int userId,int goodId);
     Boolean remove(int userId,int goodId);
     IPage<History> findByPage(Page<History> page, LambdaQueryWrapper<History> userLambdaQueryWrapper);
+    Boolean find(int userId,int goodId);
 }

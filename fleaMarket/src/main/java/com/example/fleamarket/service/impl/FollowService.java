@@ -13,12 +13,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FollowService extends ServiceImpl<IFollowDao, Follow> implements IFollowService {
+	@Override
 	public Boolean insert(int followerId,int followedId){
 		Follow follow = new Follow();
 		follow.setFollowedId(followedId);
 		follow.setFollowerId(followerId);
 		return save(follow);
 	}
+	@Override
 	public Boolean remove(int followerId,int followedId) {
 		LambdaQueryWrapper<Follow> lwq = Wrappers.lambdaQuery();
 		lwq.eq(Follow::getFollowerId,followerId).eq(Follow::getFollowedId,followedId);
