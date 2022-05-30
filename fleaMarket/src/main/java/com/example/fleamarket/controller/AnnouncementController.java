@@ -2,6 +2,7 @@ package com.example.fleamarket.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.fleamarket.entity.Announcement;
+import com.example.fleamarket.exception.ControllerException;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IAnnouncementService;
 import io.swagger.annotations.ApiModelProperty;
@@ -41,6 +42,8 @@ public class AnnouncementController {
     @GetMapping("/remove")
     public ResultVo remove(@ApiParam("公告id")int announcementId){
         log.info("删除公告");
-        return new ResultVo().setData(iAnnouncementService.remove(announcementId));
+        if(iAnnouncementService.remove(announcementId)==true){
+        return new ResultVo().setCode(200);}
+        else throw new ControllerException("此公告不存在");
     }
 }

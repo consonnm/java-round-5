@@ -27,11 +27,12 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/conversation")
 public class ConversationController {
-    Subject subject = SecurityUtils.getSubject();
+
     @ApiOperation("聊天内容查询接口")
     @GetMapping("/getPostsContent")
     public ResultVo queryPostContent(@ApiParam("用户1ID") int user1ID,@ApiParam("用户2ID")int user2ID) {
         log.info("帖子内容查询接口");
+        Subject subject = SecurityUtils.getSubject();
         User user=(User)subject.getPrincipal();
         if(user.getUserId()!=user1ID||user.getUserId()!=user2ID){
             throw new AuthenticationException();
@@ -51,6 +52,7 @@ public class ConversationController {
     @GetMapping("/insert")
     public ResultVo insert( @ApiParam("用户1ID") int user1ID,@ApiParam("用户2ID")int user2ID) {
         log.info("增加对话接口");
+        Subject subject = SecurityUtils.getSubject();
         User user=(User)subject.getPrincipal();
         if(user.getUserId()!=user1ID||user.getUserId()!=user2ID){
             throw new AuthenticationException();
@@ -62,6 +64,7 @@ public class ConversationController {
     @GetMapping("/getUserPost")
     public ResultVo query(@ApiParam("用户1ID") int user1ID,@ApiParam("用户2ID")int user2ID) {
         log.info("用户拥有聊天查询接口");
+        Subject subject = SecurityUtils.getSubject();
         User user=(User)subject.getPrincipal();
         if(user.getUserId()!=user1ID||user.getUserId()!=user2ID){
             throw new AuthenticationException();
@@ -83,6 +86,7 @@ public class ConversationController {
     @GetMapping("/insertReplyWithoutPic")
     public ResultVo insert1(@ApiParam("用户1ID")int user1Id,@ApiParam("用户2ID")int user2Id,@ApiParam("消息内容")String content) {
         log.info("文本消息接口");
+        Subject subject = SecurityUtils.getSubject();
         User user=(User)subject.getPrincipal();
         if(user.getUserId()!=user1Id||user.getUserId()!=user2Id){
             throw new AuthenticationException();
@@ -95,11 +99,11 @@ public class ConversationController {
     @GetMapping("/insertReplyWithPic")
     public ResultVo insert2(@ApiParam("用户1ID")int user1Id,@ApiParam("用户2ID")int user2Id, @ApiParam("照片") MultipartFile file) {
         log.info("图片消息接口");
+        Subject subject = SecurityUtils.getSubject();
         User user=(User)subject.getPrincipal();
         if(user.getUserId()!=user1Id||user.getUserId()!=user2Id){
             throw new AuthenticationException();
         }
-        String pic = aliyunOSSUtil.upload(file);
         iMessageService.insertPic(user1Id, user2Id, file);
         return new ResultVo().setCode(200);
 
