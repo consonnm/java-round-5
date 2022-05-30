@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 
 @TableName("announcement")
@@ -21,6 +22,7 @@ public class Announcement{
     @ApiModelProperty("公告主题")
     String topic;
     @ApiModelProperty("公告内容")
+    @Length(max = 255, message = "输入的内容超过规定长度！")
     String context;
     @ApiModelProperty("公告时间")
     String time;

@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 
 @TableName("reply")
@@ -22,6 +23,7 @@ public class Reply{
     @ApiModelProperty("回复用户的id")
     int sellManId;
     @ApiModelProperty("描述")
+    @Length(max = 255, message = "输入的内容超过规定长度！")
     String description;
     @ApiModelProperty("图片")
     String pic;

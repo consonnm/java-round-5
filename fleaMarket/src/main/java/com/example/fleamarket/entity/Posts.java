@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class Posts{
     @ApiModelProperty("寻物用户的id")
     int buyerId;
     @ApiModelProperty("求物描述")
+    @Length(max = 255, message = "输入的内容超过规定长度！")
     String description;
     @ApiModelProperty("话题分类")
     @TableField(exist = false)
