@@ -1,10 +1,13 @@
 package com.example.fleamarket.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.fleamarket.dao.IPostsDao;
 import com.example.fleamarket.entity.Category;
+
 import com.example.fleamarket.entity.Posts;
 import com.example.fleamarket.service.IPostsService;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,10 @@ public class PostService extends ServiceImpl<IPostsDao, Posts> implements IPosts
                 .eq(Posts::getPostId,postId)
 
         );
+    }
+    @Override
+    public IPage<Posts> findByPage(Page<Posts> page, LambdaQueryWrapper<Posts> userLambdaQueryWrapper){
+        return  baseMapper.selectPage(page,userLambdaQueryWrapper);
     }
 
     @Override

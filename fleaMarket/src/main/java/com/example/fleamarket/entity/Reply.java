@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel("帖子")
+@ApiModel("回复")
 public class Reply{
     @TableId
     @ApiModelProperty("主键id")
@@ -27,12 +27,5 @@ public class Reply{
     String pic;
     @ApiModelProperty("楼层")
     int floor;
-    public Reply(int id, int postId, int sellManId, String description,  int floor) {
-        Id = id;
-        this.postId = postId;
-        this.sellManId = sellManId;
-        this.description = description;
-        this.pic = null;
-        this.floor = floor;
-    }
+
 }

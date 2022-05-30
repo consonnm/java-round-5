@@ -32,6 +32,7 @@ public class AnnouncementController {
     @ApiOperation("增加公告")
     @GetMapping("/insert")
     public ResultVo insert(@ApiParam("公告内容")String context,@ApiParam("公告主题")String topic,@ApiParam("公告时间") String time){
+
         log.info("增加公告");
         return new ResultVo().setData(iAnnouncementService.insert(context,topic,time));
     }
