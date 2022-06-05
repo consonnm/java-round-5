@@ -31,7 +31,7 @@ public class ConversationController {
     @ApiOperation("聊天内容查询接口")
     @GetMapping("/getPostsContent")
     public ResultVo queryPostContent(@ApiParam("用户1ID") int user1ID,@ApiParam("用户2ID")int user2ID) {
-        log.info("帖子内容查询接口");
+        log.info("聊天内容查询接口");
         Subject subject = SecurityUtils.getSubject();
         User user=(User)subject.getPrincipal();
         if(user.getUserId()!=user1ID||user.getUserId()!=user2ID){
@@ -81,7 +81,6 @@ public class ConversationController {
     @Autowired
     IConversationService iConversationService;
     IMessageService iMessageService;
-    AliyunOSSUtil aliyunOSSUtil;
     @ApiOperation("发送文本消息接口")
     @GetMapping("/insertReplyWithoutPic")
     public ResultVo insert1(@ApiParam("用户1ID")int user1Id,@ApiParam("用户2ID")int user2Id,@ApiParam("消息内容")String content) {

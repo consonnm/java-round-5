@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import org.hibernate.validator.constraints.Length;
 
 
 @TableName("comment")
@@ -25,5 +25,6 @@ public class Comment{
 	@ApiModelProperty("被评价用户的id")
 	int beCommentedUserId;
 	@ApiModelProperty("评论的内容")
+	@Length(max = 255, message = "输入的内容超过规定长度！")
 	String content;
 }

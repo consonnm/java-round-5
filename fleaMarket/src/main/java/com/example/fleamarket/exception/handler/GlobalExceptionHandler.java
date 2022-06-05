@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @Slf4j
 public class GlobalExceptionHandler {
 
-	@ExceptionHandler(value = { ControllerException.class, ServiceException.class })
+	@ExceptionHandler(value = { ControllerException.class, ServiceException.class,UnauthorizedException.class, UnauthenticatedException.class})
 	public ResponseEntity<ResultVo> controllerExceptionHandler(Exception ex) {
 		if (ex instanceof UnauthenticatedException) {
 			return new ResponseEntity<ResultVo>(new ResultVo(400, ex.getMessage(), null),

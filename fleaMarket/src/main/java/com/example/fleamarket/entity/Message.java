@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDate;
 
@@ -27,6 +28,7 @@ public class Message {
 	@ApiModelProperty("用户2的id")
 	int User2Id;
 	@ApiModelProperty("消息内容")
+	@Length(max = 255, message = "输入的内容超过规定长度！")
 	String content;
 	@ApiModelProperty("发送时间")
 	LocalDate date;

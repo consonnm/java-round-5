@@ -8,9 +8,11 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.validation.constraints.Pattern;
 
 
 @TableName("goods")
@@ -29,12 +31,16 @@ public class Goods{
 	@ApiModelProperty("分类的id")
 	int categoryId;
 	@ApiModelProperty("名称")
+	@Length(max = 255, message = "输入的内容超过规定长度！")
 	String goodName;
 	@ApiModelProperty("简介")
+	@Length(max = 255, message = "输入的内容超过规定长度！")
 	String summary;
 	@ApiModelProperty("审核情况")
+	@Pattern(regexp = "(已审核)|(未审核)|(审核未通过)")
 	String approved;
 	@ApiModelProperty("详情介绍")
+	@Length(max = 255, message = "输入的内容超过规定长度！")
 	String detail;
 	@ApiModelProperty("图片")
 	String image;
