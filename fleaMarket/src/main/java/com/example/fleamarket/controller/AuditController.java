@@ -1,7 +1,9 @@
 package com.example.fleamarket.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.fleamarket.entity.Announcement;
 import com.example.fleamarket.entity.Audit;
+import com.example.fleamarket.exception.ControllerException;
 import com.example.fleamarket.response.ResultVo;
 import com.example.fleamarket.service.IAuditService;
 import io.swagger.annotations.ApiOperation;
@@ -10,10 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Slf4j
 @RestController
@@ -32,8 +34,13 @@ public class AuditController {
     @RequiresRoles("admin")
     @ApiOperation("增加审核记录")
     @GetMapping("/insert")
-    public ResultVo insert(@ApiParam("情况")Boolean status,@ApiParam("商品id")int goodId,@ApiParam("管理员id")int adminId){
+    public ResultVo insert(@Valid @RequestBody Audit audit, BindingResult bindingResult){
         log.info("增加审核记录");
-        return new ResultVo().setData(iAuditService.insert(status,goodId,adminId));
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(e -> {
+                throw new ControllerException(e.getDefaultMessage());
+            });
+        }
+        return new ResultVo().setData(iAuditService.insert(audit.getStatus(),audit.getGoodId(),audit.getAdminId()));
     }
 }

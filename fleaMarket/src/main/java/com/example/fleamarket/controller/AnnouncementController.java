@@ -11,10 +11,10 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Slf4j
 @RestController
@@ -29,13 +29,22 @@ public class AnnouncementController {
         Page<Announcement> page = new Page<>(current, size );
         return new ResultVo().setData(iAnnouncementService.findByPage(page,null));
     }
+
+
+
     @RequiresRoles("admin")
     @ApiOperation("增加公告")
-    @GetMapping("/insert")
-    public ResultVo insert(@ApiParam("公告内容")String context,@ApiParam("公告主题")String topic,@ApiParam("公告时间") String time){
+    @PostMapping("/insert")
+    public ResultVo insert(@Valid @RequestBody Announcement announcement, BindingResult bindingResult) {
 
         log.info("增加公告");
-        return new ResultVo().setData(iAnnouncementService.insert(context,topic,time));
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(e -> {
+                throw new ControllerException(e.getDefaultMessage());
+            });
+        }
+            return new ResultVo().setData(iAnnouncementService.insert(announcement.getContext(), announcement.getTopic(), announcement.getTime()));
+
     }
     @RequiresRoles("admin")
     @ApiOperation("删除公告")
